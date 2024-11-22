@@ -64,4 +64,8 @@ data:
   SAFE_OPEN_WINDOW_SIZE_SECONDS: "{{ default $.Values.defaults.alerts.safeOpenWindowSizeSeconds (default (dict "safeOpenWindowSizeSeconds" $.Values.defaults.alerts.safeOpenWindowSizeSeconds) .alerts).safeOpenWindowSizeSeconds }}"
   NUMBER_OF_DOMINANT_LABELS: "{{ default $.Values.defaults.alerts.numberOfDominantLabels (default (dict "numberOfDominantLabels" $.Values.defaults.alerts.numberOfDominantLabels) .alerts).numberOfDominantLabels }}"
   MOTION_ALERT_MIN_INTERVAL: "{{ default $.Values.defaults.alerts.motionAlertMinInterval (default (dict "motionAlertMinInterval" $.Values.defaults.alerts.motionAlertMinInterval) .alerts).motionAlertMinInterval }}"
+  # Deprecated in favor of Org Tree
+  LABEL_DEVICE_ID: "{{ default $.Values.defaults.labels.deviceID (default (dict "deviceID" $.Values.defaults.labels.deviceID) .labels).deviceID }}"
+  LABEL_NAMESPACE: "{{ default $.Values.defaults.labels.teamspace (default (dict "teamspace" $.Values.defaults.labels.teamspace) .labels).teamspace }}"
+  LABEL_DOMAIN: "{{ default $.Values.defaults.labels.domain (default (dict "domain" $.Values.defaults.labels.domain) .labels).domain }}"
 {{- end }}

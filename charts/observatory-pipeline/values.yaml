@@ -86,3 +86,8 @@ defaults:
     safeOpenWindowSizeSeconds: 5 # Default window size of 5 seconds
     numberOfDominantLabels: 5
     motionAlertMinInterval: 30 # 30 seconds
+  # Deprecated and will be removed in future versions when we find a new way to handle this
+  labels:
+    deviceID: "test-device"
+    teamspace: "test-teamspace"
+    domain: "teknoir.cloud"
