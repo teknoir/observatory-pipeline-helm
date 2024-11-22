@@ -3,6 +3,16 @@ entries:
   observatory-pipeline:
   - apiVersion: v2
     appVersion: 1.0.0
+    created: "2024-11-22T08:05:03.844464759Z"
+    description: A Helm chart for Observatory Pipleine
+    digest: 2a0c825eff74c7aff3ff48164723ded05a1e35e10accf29ff3f2d42cae67eb5f
+    name: observatory-pipeline
+    type: application
+    urls:
+    - https://github.com/teknoir/observatory-pipeline-helm/releases/download/observatory-pipeline-0.0.4/observatory-pipeline-0.0.4.tgz
+    version: 0.0.4
+  - apiVersion: v2
+    appVersion: 1.0.0
     created: "2024-11-22T07:07:49.305112563Z"
     description: A Helm chart for Observatory Pipleine
     digest: f382f4e0d8f5c32ac5e7bbe93bd24b1a33feecdf0a02c25a1eb5ee020dd30295
@@ -21,4 +31,4 @@ entries:
     urls:
     - https://github.com/teknoir/observatory-pipeline-helm/releases/download/observatory-pipeline-0.0.2/observatory-pipeline-0.0.2.tgz
     version: 0.0.2
-generated: "2024-11-22T07:07:49.305125658Z"
+generated: "2024-11-22T08:05:03.844480167Z"
