@@ -1,0 +1,3 @@
+{{- range .Values.instances }}
+* A Observatory Pipeline Stream is installed in the namespace: {{ $.Release.Namespace }} as {{ .stream }}
+{{- end }}

@@ -1,0 +1,24 @@
+defaults:
+  debugLevel: DEBUG
+
+streams:
+  - stream: update-frame-rate-control
+    mqtt:
+      topicDetections: "camera/frames/#"
+  - stream: record-detections
+    mqtt:
+      topicDetections: "camera/frames/#"
+  - stream: update-movements
+  - stream: filter-movements
+  # ALERTS
+  - stream: motion
+  - stream: loitering
+  - stream: person-down
+  - stream: catalytic-theft
+  # ALERT PROCESSING
+  - stream: update-alerts
+  - stream: make-clip
+    video:
+      mountSegmentPath: true
+      mountClipTempPath: true
+

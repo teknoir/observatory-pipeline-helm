@@ -1,0 +1,51 @@
+{{- range .Values.streams }}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: stream-{{ .stream }}
+  namespace: {{ $.Release.Namespace }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: stream-{{ .stream }}
+  template:
+    metadata:
+      labels:
+        teknoir.org/app: stream-{{ .stream }}
+        app: stream-{{ .stream }}
+    spec:
+      containers:
+        - name: {{ .stream }}
+          image: "{{ default $.Values.defaults.image.repository (default (dict "repository" $.Values.defaults.image.repository) .image).repository }}:{{ default $.Values.defaults.image.tag (default (dict "tag" $.Values.defaults.image.tag) .image).tag }}"
+          imagePullPolicy: Always
+          envFrom:
+            - configMapRef:
+                name: stream-{{ .stream }}-env-config
+          resources:
+            {{- toYaml (default $.Values.defaults.resources .resources) | nindent 12 }}
+          volumeMounts:
+            {{- if (default $.Values.defaults.video.mountSegmentPath (default (dict "mountSegmentPath" $.Values.defaults.video.mountSegmentPath) .video).mountSegmentPath) }}
+            - name: segments
+              mountPath: /videos
+            {{- end }}
+            {{- if (default $.Values.defaults.video.mountClipTempPath (default (dict "mountClipTempPath" $.Values.defaults.video.mountClipTempPath) .video).mountClipTempPath) }}
+            - name: clips
+              mountPath: /video-tmp
+            {{- end }}
+      volumes:
+        {{- if (default $.Values.defaults.video.mountSegmentPath (default (dict "mountSegmentPath" $.Values.defaults.video.mountSegmentPath) .video).mountSegmentPath) }}
+        - name: segments
+          hostPath:
+            path: {{ default $.Values.defaults.video.segmentPath (default (dict "segmentPath" $.Values.defaults.video.segmentPath) .video).segmentPath }}
+            type: DirectoryOrCreate
+        {{- end }}
+        {{- if (default $.Values.defaults.video.mountClipTempPath (default (dict "mountClipTempPath" $.Values.defaults.video.mountClipTempPath) .video).mountClipTempPath) }}
+        - name: clips
+          hostPath:
+            path: {{ default $.Values.defaults.video.clipTempPath (default (dict "clipTempPath" $.Values.defaults.video.clipTempPath) .video).clipTempPath }}
+            type: DirectoryOrCreate
+        {{- end }}
+
+  {{- end }}
