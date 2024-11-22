@@ -5,6 +5,8 @@ kind: Deployment
 metadata:
   name: stream-{{ .stream }}
   namespace: {{ $.Release.Namespace }}
+  annotations:
+    {{- toYaml (default $.Values.defaults.annotations .annotations) | nindent 4 }}
 spec:
   replicas: 1
   selector:
@@ -15,6 +17,8 @@ spec:
       labels:
         teknoir.org/app: stream-{{ .stream }}
         app: stream-{{ .stream }}
+      annotations:
+        {{- toYaml (default $.Values.defaults.annotations .annotations) | nindent 8 }}
     spec:
       containers:
         - name: {{ .stream }}

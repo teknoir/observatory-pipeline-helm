@@ -7,6 +7,8 @@ metadata:
   namespace: {{ $.Release.Namespace }}
   labels:
     app: stream-{{ .stream }}
+  annotations:
+    {{- toYaml (default $.Values.defaults.annotations .annotations) | nindent 4 }}
 data:
   DEBUG_LEVEL: "{{ default $.Values.defaults.debugLevel .debugLevel }}"
   CLIENT_ID: "stream-{{ .stream }}"
