@@ -88,6 +88,11 @@ defaults:
     safeOpenWindowSizeSeconds: 5 # Default window size of 5 seconds
     numberOfDominantLabels: 5
     motionAlertMinInterval: 30 # 30 seconds
+    alertHeatmapEnabled: true
+    alertHeatmapGridSize: 20  # NXN grid size
+    alertHeatmapEventsRetentionPeriod: 86400 # 24h = 86400 seconds
+    alertHeatmapThresholdFilter: 900 # Alert frequency threshold for certain region, default 900s (every 15 minutes). Alert is filtered if it occurs more frequently than this.
+    alertHeatmapAlertsToFilter: "loitering,person_down" # Alerts to filter out from the heatmap, e.g. "loitering"
   # Deprecated and will be removed in future versions when we find a new way to handle this
   labels:
     deviceID: "test-device"
