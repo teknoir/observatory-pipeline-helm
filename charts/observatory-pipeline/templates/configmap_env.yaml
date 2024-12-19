@@ -69,8 +69,8 @@ data:
   ALERT_HEATMAP_ENABLED: "{{ default $.Values.defaults.alerts.alertHeatmapEnabled (default (dict "alertHeatmapEnabled" $.Values.defaults.alerts.alertHeatmapEnabled) .alerts).alertHeatmapEnabled }}"
   ALERT_HEATMAP_GRID_SIZE: "{{ default $.Values.defaults.alerts.alertHeatmapGridSize (default (dict "alertHeatmapGridSize" $.Values.defaults.alerts.alertHeatmapGridSize) .alerts).alertHeatmapGridSize }}"
   ALERT_HEATMAP_EVENTS_RETENTION_PERIOD: "{{ default $.Values.defaults.alerts.alertHeatmapEventsRetentionPeriod (default (dict "alertHeatmapEventsRetentionPeriod" $.Values.defaults.alerts.alertHeatmapEventsRetentionPeriod) .alerts).alertHeatmapEventsRetentionPeriod }}"
-  ALERT_HEATMAP_THRESHOLD_FILTER: "{{ default $.Values.defaults.alerts.alertHeatmapThresholdFilter (default (dict "alertHeatmapThresholdFilter" $.Values.defaults.alerts.alertHeatmapThresholdFilter) .alerts).alertHeatmapThresholdFilter }}"
   ALERT_HEATMAP_ALERTS_TO_FILTER: "{{ default $.Values.defaults.alerts.alertHeatmapAlertsToFilter (default (dict "alertHeatmapAlertsToFilter" $.Values.defaults.alerts.alertHeatmapAlertsToFilter) .alerts).alertHeatmapAlertsToFilter }}"
+  ALERT_HEATMAP_PERCENTILE_THRESHOLD: "{{ default $.Values.defaults.alerts.alertHeatmapPercentileThreshold (default (dict "alertHeatmapPercentileThreshold" $.Values.defaults.alerts.alertHeatmapPercentileThreshold) .alerts).alertHeatmapPercentileThreshold }}"
   
   # Deprecated in favor of Org Tree
   LABEL_DEVICE_ID: "{{ default $.Values.defaults.labels.deviceID (default (dict "deviceID" $.Values.defaults.labels.deviceID) .labels).deviceID }}"
