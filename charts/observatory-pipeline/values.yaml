@@ -34,7 +34,7 @@ defaults:
     topicMovements: "events/movements"
     topicFilteredMovements: "events/filtered-movements"
     topicAlerts: "events/alerts"
-    topicStaleAlerts: "events/stale-alerts"
+    topicStaleAlerts: "toe/events/stale-alerts"
     topicSensors: "events/sensors"
     topicMeasurements: "events/measurements"
     topicToeEvents: "toe/events"
