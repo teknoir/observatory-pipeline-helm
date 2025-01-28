@@ -93,7 +93,4 @@ data:
   # Metrics
   METRICS_INTERVAL: "{{ default $.Values.defaults.metrics.interval (default (dict "interval" $.Values.defaults.metrics.interval) .metrics).interval }}"
   METRICS_PORT: "{{ default $.Values.defaults.metrics.port (default (dict "port" $.Values.defaults.metrics.port) .metrics).port }}"
-
-  # File transfer
-  TRANSFER_FILE_BLOCK_SIZE: "{{ default $.Values.defaults.video.transferFileBlockSize (default (dict "transferFileBlockSize" $.Values.defaults.video.transferFileBlockSize) .video).transferFileBlockSize }}"
 {{- end }}
