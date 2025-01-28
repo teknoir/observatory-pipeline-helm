@@ -86,7 +86,7 @@ spec:
         clipRunupLength: 10 # seconds
         chunkMaxSize: 500000 # bytes
         chunkRetentionSeconds: 300 # seconds
-        videoBucketPath: "media/videos"
+        videoBasePath: "media/videos"
         hasAnnotations: true
         annotationsBucketPath: "media/annotations"
         snapshotBucketPath: "media/snapshots"

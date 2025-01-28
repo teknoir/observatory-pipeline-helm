@@ -3,10 +3,10 @@ name: observatory-pipeline
 description: A Helm chart for Observatory Pipleine
 
 type: application
-version: 0.0.6
+version: 0.0.7
 appVersion: "1.0.0"
 
 dependencies:
   - name: file-transfer
     version: 0.0.1
-    repository: https://teknoir.github.io/file-transfer
+    repository: https://teknoir.github.io/file-transfer-helm

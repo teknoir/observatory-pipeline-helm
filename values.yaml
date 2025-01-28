@@ -2,7 +2,7 @@ defaults:
   debugLevel: DEBUG
   labels:
     deviceID: "trainer-2x-rtx3090"
-    teamspace: "teknoir-ai"
+    namespace: "teknoir-ai"
     domain: "teknoir.cloud"
 
 streams:
@@ -25,4 +25,6 @@ streams:
     video:
       mountSegmentPath: true
       mountClipTempPath: true
+  - stream: transfer-file
+  - stream: prepare-file
 
