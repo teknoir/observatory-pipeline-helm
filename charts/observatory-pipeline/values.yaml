@@ -4,12 +4,21 @@ streams:
 
 # Values possible for Observatory Pipelines
 defaults:
+  # Application identification
+  appName: observatory-event-processing-app
+  appVersion: 0.0.1
+  clientId: observatory-ep
+  
+  # MongoDB connection
+  mongodb:
+    uri: mongodb://localhost:27017
+
   stream: update-frame-rate-control
   annotations:
     teknoir.org/managed-by: devstudio
   image:
     repository: us-docker.pkg.dev/teknoir/gcr.io/observatory-event-processing
-    tag: dev-bfe695c
+    tag: dev-c3f8a7c
   # Set the log level for the nvr
   # - DEBUG
   # - INFO
@@ -37,9 +46,12 @@ defaults:
     topicStaleAlerts: "toe/events/stale-alerts"
     topicSensors: "events/sensors"
     topicMeasurements: "events/measurements"
+    topicToeState: "toe/state"
     topicToeEvents: "toe/events"
     topicToeCommands: "toe/commands/devstudio"
+    topicToeFileCommands: "toe/commands/file"
     topicAllDevices: "/devices/+/events"
+    topicFileTransfers: "/devices/+/events/file/+"
   resources:
     limits:
       cpu: 2000m
@@ -56,6 +68,8 @@ defaults:
   regions:
     iouThreshold: 0.001 # default Intersection Over Union (IOU) threshold for object detection inside region
   video:
+    directory: "/videos"
+    tempDirectory: "/video-tmp"
     minStartBeforeAlert: 10 # seconds
     mountSegmentPath: false
     segmentPath: "/opt/teknoir/video/segments"
@@ -67,11 +81,12 @@ defaults:
     clipRunupLength: 10 # seconds
     chunkMaxSize: 500000 # bytes
     chunkRetentionSeconds: 300 # seconds
-    videoBucketPath: "media/videos"
+    videoBasePath: "media/videos"
     hasAnnotations: true
     annotationsBucketPath: "media/annotations"
     snapshotBucketPath: "media/snapshots"
     staleSeconds: 30 # seconds
+    transferFileBlockSize: 314572800 # bytes (300MB)
   alerts:
     personDownInterval: 10
     personDownScoreThreshold: 0.85
@@ -82,9 +97,6 @@ defaults:
     loiteringThreshold: 60 # 60 seconds
     loiteringCheckStationary: true
     loiteringStationaryThreshold: 0.01 # 1% of FOV
-    repetitiveAlertsCheck: true
-    repetitiveAlertsTimespan: 3600 # seconds
-    repetitiveAlertsIouThreshold: 0.9 # 90%
     safeOpenWindowSizeSeconds: 5 # Default window size of 5 seconds
     numberOfDominantLabels: 5
     motionAlertMinInterval: 30 # 30 seconds
@@ -96,5 +108,8 @@ defaults:
   # Deprecated and will be removed in future versions when we find a new way to handle this
   labels:
     deviceID: "test-device"
-    teamspace: "test-teamspace"
+    namespace: "test-namespace"
     domain: "teknoir.cloud"
+  metrics:
+    interval: 60 # seconds
+    port: "8000"

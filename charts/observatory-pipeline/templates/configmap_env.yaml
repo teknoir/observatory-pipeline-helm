@@ -46,7 +46,7 @@ data:
   VIDEO_CLIP_RUNUP_LENGTH: "{{ default $.Values.defaults.video.clipRunupLength (default (dict "clipRunupLength" $.Values.defaults.video.clipRunupLength) .video).clipRunupLength }}"
   CHUNK_MAX_SIZE: "{{ default $.Values.defaults.video.chunkMaxSize (default (dict "chunkMaxSize" $.Values.defaults.video.chunkMaxSize) .video).chunkMaxSize }}"
   CHUNK_RETENTION_SECONDS: "{{ default $.Values.defaults.video.chunkRetentionSeconds (default (dict "chunkRetentionSeconds" $.Values.defaults.video.chunkRetentionSeconds) .video).chunkRetentionSeconds }}"
-  VIDEO_BASE_PATH: "{{ default $.Values.defaults.video.videoBucketPath (default (dict "videoBucketPath" $.Values.defaults.video.videoBucketPath) .video).videoBucketPath }}"
+  VIDEO_BASE_PATH: "{{ default $.Values.defaults.video.videoBasePath (default (dict "videoBasePath" $.Values.defaults.video.videoBasePath) .video).videoBasePath }}"
   VIDEO_HAS_ANNOTATIONS: "{{ default $.Values.defaults.video.hasAnnotations (default (dict "hasAnnotations" $.Values.defaults.video.hasAnnotations) .video).hasAnnotations }}"
   ANNOTATIONS_BASE_PATH: "{{ default $.Values.defaults.video.annotationsBucketPath (default (dict "annotationsBucketPath" $.Values.defaults.video.annotationsBucketPath) .video).annotationsBucketPath }}"
   SNAPSHOT_BASE_PATH: "{{ default $.Values.defaults.video.snapshotBucketPath (default (dict "snapshotBucketPath" $.Values.defaults.video.snapshotBucketPath) .video).snapshotBucketPath }}"
@@ -74,6 +74,29 @@ data:
   
   # Deprecated in favor of Org Tree
   LABEL_DEVICE_ID: "{{ default $.Values.defaults.labels.deviceID (default (dict "deviceID" $.Values.defaults.labels.deviceID) .labels).deviceID }}"
-  LABEL_NAMESPACE: "{{ default $.Values.defaults.labels.teamspace (default (dict "teamspace" $.Values.defaults.labels.teamspace) .labels).teamspace }}"
+  LABEL_NAMESPACE: "{{ default $.Values.defaults.labels.namespace (default (dict "namespace" $.Values.defaults.labels.namespace) .labels).namespace }}"
   LABEL_DOMAIN: "{{ default $.Values.defaults.labels.domain (default (dict "domain" $.Values.defaults.labels.domain) .labels).domain }}"
+
+  # Application identification
+  APP_NAME: "{{ default $.Values.defaults.appName .appName }}"
+  APP_VERSION: "{{ default $.Values.defaults.appVersion .appVersion }}"
+
+  # MongoDB
+  MONGODB_URI: "{{ default $.Values.defaults.mongodb.uri (default (dict "uri" $.Values.defaults.mongodb.uri) .mongodb).uri }}"
+
+  # MQTT additional topics
+  MQTT_TOPIC_TOE_STATE: "{{ default $.Values.defaults.mqtt.topicToeState (default (dict "topicToeState" $.Values.defaults.mqtt.topicToeState) .mqtt).topicToeState }}"
+  MQTT_TOPIC_TOE_FILE_COMMANDS: "{{ default $.Values.defaults.mqtt.topicToeFileCommands (default (dict "topicToeFileCommands" $.Values.defaults.mqtt.topicToeFileCommands) .mqtt).topicToeFileCommands }}"
+  MQTT_TOPIC_FILE_TRANSFERS: "{{ default $.Values.defaults.mqtt.topicFileTransfers (default (dict "topicFileTransfers" $.Values.defaults.mqtt.topicFileTransfers) .mqtt).topicFileTransfers }}"
+
+  # Video directories
+  VIDEO_DIRECTORY: "{{ default $.Values.defaults.video.directory (default (dict "directory" $.Values.defaults.video.directory) .video).directory }}"
+  VIDEO_TEMP_DIRECTORY: "{{ default $.Values.defaults.video.tempDirectory (default (dict "tempDirectory" $.Values.defaults.video.tempDirectory) .video).tempDirectory }}"
+
+  # Metrics
+  METRICS_INTERVAL: "{{ default $.Values.defaults.metrics.interval (default (dict "interval" $.Values.defaults.metrics.interval) .metrics).interval }}"
+  METRICS_PORT: "{{ default $.Values.defaults.metrics.port (default (dict "port" $.Values.defaults.metrics.port) .metrics).port }}"
+
+  # File transfer
+  TRANSFER_FILE_BLOCK_SIZE: "{{ default $.Values.defaults.video.transferFileBlockSize (default (dict "transferFileBlockSize" $.Values.defaults.video.transferFileBlockSize) .video).transferFileBlockSize }}"
 {{- end }}
