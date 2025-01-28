@@ -3,6 +3,20 @@ entries:
   observatory-pipeline:
   - apiVersion: v2
     appVersion: 1.0.0
+    created: "2025-01-28T15:16:11.946131678Z"
+    dependencies:
+    - name: file-transfer
+      repository: https://teknoir.github.io/file-transfer-helm
+      version: 0.0.2
+    description: A Helm chart for Observatory Pipleine
+    digest: 86276a8cf7553645a4541e24cbf5ca4126f812faf27e7b572e29c178eb62cbaa
+    name: observatory-pipeline
+    type: application
+    urls:
+    - https://github.com/teknoir/observatory-pipeline-helm/releases/download/observatory-pipeline-0.0.8/observatory-pipeline-0.0.8.tgz
+    version: 0.0.8
+  - apiVersion: v2
+    appVersion: 1.0.0
     created: "2025-01-28T13:28:30.388338632Z"
     dependencies:
     - name: file-transfer
@@ -65,4 +79,4 @@ entries:
     urls:
     - https://github.com/teknoir/observatory-pipeline-helm/releases/download/observatory-pipeline-0.0.2/observatory-pipeline-0.0.2.tgz
     version: 0.0.2
-generated: "2025-01-28T13:28:30.388391311Z"
+generated: "2025-01-28T15:16:11.946163247Z"
