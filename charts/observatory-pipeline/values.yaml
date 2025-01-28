@@ -86,7 +86,6 @@ defaults:
     annotationsBucketPath: "media/annotations"
     snapshotBucketPath: "media/snapshots"
     staleSeconds: 30 # seconds
-    transferFileBlockSize: 314572800 # bytes (300MB)
   alerts:
     personDownInterval: 10
     personDownScoreThreshold: 0.85
