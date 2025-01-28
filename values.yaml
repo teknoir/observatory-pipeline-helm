@@ -21,10 +21,6 @@ streams:
   - stream: catalytic-theft
   # ALERT PROCESSING
   - stream: update-alerts
-  - stream: make-clip
-    video:
-      mountSegmentPath: true
-      mountClipTempPath: true
   - stream: transfer-file
   - stream: prepare-file
 
