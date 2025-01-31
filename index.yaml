@@ -3,6 +3,26 @@ entries:
   observatory-pipeline:
   - apiVersion: v2
     appVersion: 2.0.0
+    created: "2025-01-31T15:18:18.293614496Z"
+    dependencies:
+    - name: file-transfer
+      repository: https://teknoir.github.io/file-transfer-helm
+      version: 0.0.3
+    - name: clickhouse
+      repository: https://teknoir.github.io/clickhouse-helm
+      version: 0.1.3
+    - name: keydb
+      repository: https://teknoir.github.io/keydb-helm
+      version: 0.1.2
+    description: A Helm chart for Observatory Pipleine
+    digest: 79f785447a4f788f264926eadb449ffac18b992ff1a51dafdf3239658c7166e1
+    name: observatory-pipeline
+    type: application
+    urls:
+    - https://github.com/teknoir/observatory-pipeline-helm/releases/download/observatory-pipeline-0.1.0-clickhouse.5/observatory-pipeline-0.1.0-clickhouse.5.tgz
+    version: 0.1.0-clickhouse.5
+  - apiVersion: v2
+    appVersion: 2.0.0
     created: "2025-01-31T15:08:05.366474403Z"
     dependencies:
     - name: file-transfer
@@ -127,4 +147,4 @@ entries:
     urls:
     - https://github.com/teknoir/observatory-pipeline-helm/releases/download/observatory-pipeline-0.0.2/observatory-pipeline-0.0.2.tgz
     version: 0.0.2
-generated: "2025-01-31T15:08:05.366527452Z"
+generated: "2025-01-31T15:18:18.29368Z"
