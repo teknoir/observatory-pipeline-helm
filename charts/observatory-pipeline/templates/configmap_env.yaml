@@ -10,9 +10,12 @@ metadata:
   annotations:
     {{- toYaml (default $.Values.defaults.annotations .annotations) | nindent 4 }}
 data:
+  # General
   DEBUG_LEVEL: "{{ default $.Values.defaults.debugLevel .debugLevel }}"
   CLIENT_ID: "stream-{{ .stream }}"
   STREAM: "{{ .stream }}"
+
+  # MQTT
   MQTT_SERVICE_HOST: "{{ default $.Values.defaults.mqtt.broker (default (dict "broker" $.Values.defaults.mqtt.broker) .mqtt).broker }}"
   MQTT_SERVICE_PORT: "{{ default $.Values.defaults.mqtt.port (default (dict "port" $.Values.defaults.mqtt.port) .mqtt).port }}"
   MQTT_USERNAME: "{{ default $.Values.defaults.mqtt.username (default (dict "username" $.Values.defaults.mqtt.username) .mqtt).username }}"
@@ -31,14 +34,29 @@ data:
   MQTT_TOPIC_STALE_ALERTS: "{{ default $.Values.defaults.mqtt.topicStaleAlerts (default (dict "topicStaleAlerts" $.Values.defaults.mqtt.topicStaleAlerts) .mqtt).topicStaleAlerts }}"
   MQTT_TOPIC_SENSORS: "{{ default $.Values.defaults.mqtt.topicSensors (default (dict "topicSensors" $.Values.defaults.mqtt.topicSensors) .mqtt).topicSensors }}"
   MQTT_TOPIC_MEASUREMENTS: "{{ default $.Values.defaults.mqtt.topicMeasurements (default (dict "topicMeasurements" $.Values.defaults.mqtt.topicMeasurements) .mqtt).topicMeasurements }}"
+  MQTT_TOPIC_TOE_STATE: "{{ default $.Values.defaults.mqtt.topicToeState (default (dict "topicToeState" $.Values.defaults.mqtt.topicToeState) .mqtt).topicToeState }}"
+  MQTT_TOPIC_TOE_EVENTS_INFERENCE: "{{ default $.Values.defaults.mqtt.topicToeEventsInference (default (dict "topicToeEventsInference" $.Values.defaults.mqtt.topicToeEventsInference) .mqtt).topicToeEventsInference }}"
+  MQTT_TOPIC_TOE_EVENTS_MOVEMENTS: "{{ default $.Values.defaults.mqtt.topicToeEventsMovements (default (dict "topicToeEventsMovements" $.Values.defaults.mqtt.topicToeEventsMovements) .mqtt).topicToeEventsMovements }}"
+  MQTT_TOPIC_TOE_EVENTS_ALERTS: "{{ default $.Values.defaults.mqtt.topicToeEventsAlerts (default (dict "topicToeEventsAlerts" $.Values.defaults.mqtt.topicToeEventsAlerts) .mqtt).topicToeEventsAlerts }}"
+  MQTT_TOPIC_TOE_EVENTS_STALE_ALERTS: "{{ default $.Values.defaults.mqtt.topicToeEventsStaleAlerts (default (dict "topicToeEventsStaleAlerts" $.Values.defaults.mqtt.topicToeEventsStaleAlerts) .mqtt).topicToeEventsStaleAlerts }}"
   MQTT_TOPIC_TOE_EVENTS: "{{ default $.Values.defaults.mqtt.topicToeEvents (default (dict "topicToeEvents" $.Values.defaults.mqtt.topicToeEvents) .mqtt).topicToeEvents }}"
   MQTT_TOPIC_TOE_COMMANDS: "{{ default $.Values.defaults.mqtt.topicToeCommands (default (dict "topicToeCommands" $.Values.defaults.mqtt.topicToeCommands) .mqtt).topicToeCommands }}"
-  MQTT_TOPIC_ALL_DEVICES: "{{ default $.Values.defaults.mqtt.topicAllDevices (default (dict "topicAllDevices" $.Values.defaults.mqtt.topicAllDevices) .mqtt).topicAllDevices }}"
+  MQTT_TOPIC_TOE_FILE_COMMANDS: "{{ default $.Values.defaults.mqtt.topicToeFileCommands (default (dict "topicToeFileCommands" $.Values.defaults.mqtt.topicToeFileCommands) .mqtt).topicToeFileCommands }}"
+  MQTT_TOPIC_DEVICES_ALL_EVENTS: "{{ default $.Values.defaults.mqtt.topicAllDevicesEvents (default (dict "topicAllDevicesEvents" $.Values.defaults.mqtt.topicAllDevicesEvents) .mqtt).topicAllDevicesEvents }}"
+  MQTT_TOPIC_DEVICES_FILE_TRANSFERS: "{{ default $.Values.defaults.mqtt.topicFileTransfers (default (dict "topicFileTransfers" $.Values.defaults.mqtt.topicFileTransfers) .mqtt).topicFileTransfers }}"
+  MQTT_TOPIC_DEVICES_EVENTS_ALERTS: "{{ default $.Values.defaults.mqtt.topicDevicesEventsAlerts (default (dict "topicDevicesEventsAlerts" $.Values.defaults.mqtt.topicDevicesEventsAlerts) .mqtt).topicDevicesEventsAlerts }}"
+  MQTT_TOPIC_DEVICES_EVENTS_STALE_ALERTS: "{{ default $.Values.defaults.mqtt.topicDevicesEventsStaleAlerts (default (dict "topicDevicesEventsStaleAlerts" $.Values.defaults.mqtt.topicDevicesEventsStaleAlerts) .mqtt).topicDevicesEventsStaleAlerts }}"
+
+  # Frontend
   FRONT_END_DEFAULT_INTERVAL: "{{ default $.Values.defaults.fe.frontEndDefaultInterval (default (dict "frontEndDefaultInterval" $.Values.defaults.fe.frontEndDefaultInterval) .fe).frontEndDefaultInterval }}"
+
+  # Historian
   HISTORIAN_BASE_URL: "{{ default $.Values.defaults.historian.apiUrl (default (dict "apiUrl" $.Values.defaults.historian.apiUrl) .historian).apiUrl }}"
   RECORD_DETECTIONS_INTERVAL: "{{ default $.Values.defaults.historian.recordDetectionsInterval (default (dict "recordDetectionsInterval" $.Values.defaults.historian.recordDetectionsInterval) .historian).recordDetectionsInterval }}"
   OBJECTS_TO_FILTER: "{{ default $.Values.defaults.historian.objectsToFilter (default (dict "objectsToFilter" $.Values.defaults.historian.objectsToFilter) .historian).objectsToFilter }}"
   IOU_THRESHOLD: "{{ default $.Values.defaults.regions.iouThreshold (default (dict "iouThreshold" $.Values.defaults.regions.iouThreshold) .regions).iouThreshold }}"
+
+  # Video
   MIN_START_BEFORE_ALERT: "{{ default $.Values.defaults.video.minStartBeforeAlert (default (dict "minStartBeforeAlert" $.Values.defaults.video.minStartBeforeAlert) .video).minStartBeforeAlert }}"
   VIDEO_SEGMENT_LENGTH: "{{ default $.Values.defaults.video.segmentLength (default (dict "segmentLength" $.Values.defaults.video.segmentLength) .video).segmentLength }}"
   VIDEO_SEGMENT_RETENTION_LENGTH: "{{ default $.Values.defaults.video.segmentRetentionLength (default (dict "segmentRetentionLength" $.Values.defaults.video.segmentRetentionLength) .video).segmentRetentionLength }}"
@@ -50,19 +68,38 @@ data:
   VIDEO_HAS_ANNOTATIONS: "{{ default $.Values.defaults.video.hasAnnotations (default (dict "hasAnnotations" $.Values.defaults.video.hasAnnotations) .video).hasAnnotations }}"
   ANNOTATIONS_BASE_PATH: "{{ default $.Values.defaults.video.annotationsBucketPath (default (dict "annotationsBucketPath" $.Values.defaults.video.annotationsBucketPath) .video).annotationsBucketPath }}"
   SNAPSHOT_BASE_PATH: "{{ default $.Values.defaults.video.snapshotBucketPath (default (dict "snapshotBucketPath" $.Values.defaults.video.snapshotBucketPath) .video).snapshotBucketPath }}"
-  ALERT_STALE_SECONDS: "{{ default $.Values.defaults.video.staleSeconds (default (dict "staleSeconds" $.Values.defaults.video.staleSeconds) .video).staleSeconds }}"
+
+  # Alerts
+  ALERT_STALE_SECONDS: "{{ default $.Values.defaults.alerts.staleSeconds (default (dict "staleSeconds" $.Values.defaults.alerts.staleSeconds) .alerts).staleSeconds }}"
+
+  # Person Down
   PERSON_DOWN_INTERVAL: "{{ default $.Values.defaults.alerts.personDownInterval (default (dict "personDownInterval" $.Values.defaults.alerts.personDownInterval) .alerts).personDownInterval }}"
   PERSON_DOWN_SCORE_THRESHOLD: "{{ default $.Values.defaults.alerts.personDownScoreThreshold (default (dict "personDownScoreThreshold" $.Values.defaults.alerts.personDownScoreThreshold) .alerts).personDownScoreThreshold }}"
   PERSON_UP_SCORE_THRESHOLD: "{{ default $.Values.defaults.alerts.personUpScoreThreshold (default (dict "personUpScoreThreshold" $.Values.defaults.alerts.personUpScoreThreshold) .alerts).personUpScoreThreshold }}"
   PERSON_DOWN_UP_TOTAL_COUNT_THRESHOLD: "{{ default $.Values.defaults.alerts.personDownUpTotalCountThreshold (default (dict "personDownUpTotalCountThreshold" $.Values.defaults.alerts.personDownUpTotalCountThreshold) .alerts).personDownUpTotalCountThreshold }}"
-  LOITERING_LABELS: "{{ default $.Values.defaults.alerts.loiteringLabels (default (dict "loiteringLabels" $.Values.defaults.alerts.loiteringLabels) .alerts).loiteringLabels }}"
+
+  # Sensors
   SENSORS_NODE_DATA: "{{ default $.Values.defaults.alerts.sensorsNodeData (default (dict "sensorsNodeData" $.Values.defaults.alerts.sensorsNodeData) .alerts).sensorsNodeData }}"
+
+  # Loitering
+  LOITERING_LABELS: "{{ default $.Values.defaults.alerts.loiteringLabels (default (dict "loiteringLabels" $.Values.defaults.alerts.loiteringLabels) .alerts).loiteringLabels }}"
   LOITERING_THRESHOLD: "{{ default $.Values.defaults.alerts.loiteringThreshold (default (dict "loiteringThreshold" $.Values.defaults.alerts.loiteringThreshold) .alerts).loiteringThreshold }}"
+  LOITERING_COUNT_THRESHOLD: "{{ default $.Values.defaults.alerts.loiteringCountThreshold (default (dict "loiteringCountThreshold" $.Values.defaults.alerts.loiteringCountThreshold) .alerts).loiteringCountThreshold }}"
   LOITERING_CHECK_STATIONARY: "{{ default $.Values.defaults.alerts.loiteringCheckStationary (default (dict "loiteringCheckStationary" $.Values.defaults.alerts.loiteringCheckStationary) .alerts).loiteringCheckStationary }}"
   LOITERING_STATIONARY_THRESHOLD: "{{ default $.Values.defaults.alerts.loiteringStationaryThreshold (default (dict "loiteringStationaryThreshold" $.Values.defaults.alerts.loiteringStationaryThreshold) .alerts).loiteringStationaryThreshold }}"
+
+  # Classification
+  DOMINANT_LABELS_MIN_COUNT: "{{ default $.Values.defaults.alerts.dominantLabelsMinCount (default (dict "dominantLabelsMinCount" $.Values.defaults.alerts.dominantLabelsMinCount) .alerts).dominantLabelsMinCount }}"
+  DOMINANT_LABELS_MIN_DURATION: "{{ default $.Values.defaults.alerts.dominantLabelsMinDuration (default (dict "dominantLabelsMinDuration" $.Values.defaults.alerts.dominantLabelsMinDuration) .alerts).dominantLabelsMinDuration }}"
+  DOMINANT_LABELS_ALERT_COOLDOWN_TIME: "{{ default $.Values.defaults.alerts.dominantLabelsAlertCooldownTime (default (dict "dominantLabelsAlertCooldownTime" $.Values.defaults.alerts.dominantLabelsAlertCooldownTime) .alerts).dominantLabelsAlertCooldownTime }}"
+  SAFE_OPEN_INFER_UNIQUE_ID: "{{ default $.Values.defaults.alerts.safeOpenInferUniqueId (default (dict "safeOpenInferUniqueId" $.Values.defaults.alerts.safeOpenInferUniqueId) .alerts).safeOpenInferUniqueId }}"
   SAFE_OPEN_WINDOW_SIZE_SECONDS: "{{ default $.Values.defaults.alerts.safeOpenWindowSizeSeconds (default (dict "safeOpenWindowSizeSeconds" $.Values.defaults.alerts.safeOpenWindowSizeSeconds) .alerts).safeOpenWindowSizeSeconds }}"
-  NUMBER_OF_DOMINANT_LABELS: "{{ default $.Values.defaults.alerts.numberOfDominantLabels (default (dict "numberOfDominantLabels" $.Values.defaults.alerts.numberOfDominantLabels) .alerts).numberOfDominantLabels }}"
-  MOTION_ALERT_MIN_INTERVAL: "{{ default $.Values.defaults.alerts.motionAlertMinInterval (default (dict "motionAlertMinInterval" $.Values.defaults.alerts.motionAlertMinInterval) .alerts).motionAlertMinInterval }}"
+
+  # Motion
+  MOTION_CHECK_INTERVAL: "{{ default $.Values.defaults.alerts.motionCheckInterval (default (dict "motionCheckInterval" $.Values.defaults.alerts.motionCheckInterval) .alerts).motionCheckInterval }}"
+  MOTION_ALERT_COOLDOWN_TIME: "{{ default $.Values.defaults.alerts.motionAlertCooldownTime (default (dict "motionAlertCooldownTime" $.Values.defaults.alerts.motionAlertCooldownTime) .alerts).motionAlertCooldownTime }}"
+
+  # Heatmap
   ALERT_HEATMAP_ENABLED: "{{ default $.Values.defaults.alerts.alertHeatmapEnabled (default (dict "alertHeatmapEnabled" $.Values.defaults.alerts.alertHeatmapEnabled) .alerts).alertHeatmapEnabled }}"
   ALERT_HEATMAP_GRID_SIZE: "{{ default $.Values.defaults.alerts.alertHeatmapGridSize (default (dict "alertHeatmapGridSize" $.Values.defaults.alerts.alertHeatmapGridSize) .alerts).alertHeatmapGridSize }}"
   ALERT_HEATMAP_EVENTS_RETENTION_PERIOD: "{{ default $.Values.defaults.alerts.alertHeatmapEventsRetentionPeriod (default (dict "alertHeatmapEventsRetentionPeriod" $.Values.defaults.alerts.alertHeatmapEventsRetentionPeriod) .alerts).alertHeatmapEventsRetentionPeriod }}"
@@ -81,14 +118,25 @@ data:
   # MongoDB
   MONGODB_URI: "{{ default $.Values.defaults.mongodb.uri (default (dict "uri" $.Values.defaults.mongodb.uri) .mongodb).uri }}"
 
-  # MQTT additional topics
-  MQTT_TOPIC_TOE_STATE: "{{ default $.Values.defaults.mqtt.topicToeState (default (dict "topicToeState" $.Values.defaults.mqtt.topicToeState) .mqtt).topicToeState }}"
-  MQTT_TOPIC_TOE_FILE_COMMANDS: "{{ default $.Values.defaults.mqtt.topicToeFileCommands (default (dict "topicToeFileCommands" $.Values.defaults.mqtt.topicToeFileCommands) .mqtt).topicToeFileCommands }}"
-  MQTT_TOPIC_FILE_TRANSFERS: "{{ default $.Values.defaults.mqtt.topicFileTransfers (default (dict "topicFileTransfers" $.Values.defaults.mqtt.topicFileTransfers) .mqtt).topicFileTransfers }}"
+  # ClickhouseDB
+  CLICKHOUSE_DB_URI: "{{ default $.Values.defaults.clickhouse.uri (default (dict "uri" $.Values.defaults.clickhouse.uri) .clickhouse).uri }}"
+  DETECTION_RETENTION: "{{ default $.Values.defaults.clickhouse.detectionRetention (default (dict "detectionRetention" $.Values.defaults.clickhouse.detectionRetention) .clickhouse).detectionRetention }}"
+  MOVEMENT_RETENTION: "{{ default $.Values.defaults.clickhouse.movementRetention (default (dict "movementRetention" $.Values.defaults.clickhouse.movementRetention) .clickhouse).movementRetention }}"
+  INFERENCE_RETENTION: "{{ default $.Values.defaults.clickhouse.inferenceRetention (default (dict "inferenceRetention" $.Values.defaults.clickhouse.inferenceRetention) .clickhouse).inferenceRetention }}"
+  ALERT_RETENTION: "{{ default $.Values.defaults.clickhouse.alertRetention (default (dict "alertRetention" $.Values.defaults.clickhouse.alertRetention) .clickhouse).alertRetention }}"
+
+  # KeyDB
+  KEYDB_DB_URI: "{{ default $.Values.defaults.keydb.uri (default (dict "uri" $.Values.defaults.keydb.uri) .keydb).uri }}"
+
+  # MilvusDB
+  MILVUS_DB_URI: "{{ default $.Values.defaults.milvus.uri (default (dict "uri" $.Values.defaults.milvus.uri) .milvus).uri }}"
 
   # Video directories
   VIDEO_DIRECTORY: "{{ default $.Values.defaults.video.directory (default (dict "directory" $.Values.defaults.video.directory) .video).directory }}"
   VIDEO_TEMP_DIRECTORY: "{{ default $.Values.defaults.video.tempDirectory (default (dict "tempDirectory" $.Values.defaults.video.tempDirectory) .video).tempDirectory }}"
+
+  # File transfer
+  TRANSFER_FILE_BLOCK_SIZE: "{{ default $.Values.defaults.transferFile.blockSize (default (dict "blockSize" $.Values.defaults.transferFile.blockSize) .transferFile).blockSize }}"
 
   # Metrics
   METRICS_INTERVAL: "{{ default $.Values.defaults.metrics.interval (default (dict "interval" $.Values.defaults.metrics.interval) .metrics).interval }}"
