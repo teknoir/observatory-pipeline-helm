@@ -139,5 +139,3 @@ defaults:
   metrics:
     interval: 60 # seconds
     port: "8000"
-  transferFile:
-    blockSize: 314572800 # 300MB

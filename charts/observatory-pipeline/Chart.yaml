@@ -3,7 +3,7 @@ name: observatory-pipeline
 description: A Helm chart for Observatory Pipleine
 
 type: application
-version: 0.1.0-clickhouse.4
+version: 0.1.0-clickhouse.5
 appVersion: "2.0.0"
 
 dependencies:

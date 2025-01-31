@@ -135,9 +135,6 @@ data:
   VIDEO_DIRECTORY: "{{ default $.Values.defaults.video.directory (default (dict "directory" $.Values.defaults.video.directory) .video).directory }}"
   VIDEO_TEMP_DIRECTORY: "{{ default $.Values.defaults.video.tempDirectory (default (dict "tempDirectory" $.Values.defaults.video.tempDirectory) .video).tempDirectory }}"
 
-  # File transfer
-  TRANSFER_FILE_BLOCK_SIZE: "{{ default $.Values.defaults.transferFile.blockSize (default (dict "blockSize" $.Values.defaults.transferFile.blockSize) .transferFile).blockSize }}"
-
   # Metrics
   METRICS_INTERVAL: "{{ default $.Values.defaults.metrics.interval (default (dict "interval" $.Values.defaults.metrics.interval) .metrics).interval }}"
   METRICS_PORT: "{{ default $.Values.defaults.metrics.port (default (dict "port" $.Values.defaults.metrics.port) .metrics).port }}"
