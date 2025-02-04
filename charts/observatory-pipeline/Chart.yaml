@@ -3,7 +3,7 @@ name: observatory-pipeline
 description: A Helm chart for Observatory Pipleine
 
 type: application
-version: 0.1.0-clickhouse.6
+version: 0.1.0-clickhouse.7
 appVersion: "2.0.0"
 
 dependencies:
@@ -11,7 +11,7 @@ dependencies:
     version: 0.0.3
     repository: https://teknoir.github.io/file-transfer-helm
   - name: clickhouse
-    version: 0.1.4
+    version: 0.1.5
     repository: https://teknoir.github.io/clickhouse-helm
   - name: keydb
     version: 0.1.2
