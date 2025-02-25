@@ -13,6 +13,22 @@ defaults:
   mongodb:
     uri: mongodb://localhost:27017
 
+  # ClickhouseDB connection
+  clickhouse:
+    uri: clickhouse:9000
+    detectionRetention: 1 # hours
+    movementRetention: 24 # hours
+    inferenceRetention: 24 # hours
+    alertRetention: 24 # hours
+
+  # KeyDB connection
+  keydb:
+    uri: keydb:6379
+
+  # MilvusDB connection
+  milvus:
+    uri: milvus:19530
+
   stream: update-frame-rate-control
   annotations:
     teknoir.org/managed-by: devstudio
@@ -47,11 +63,17 @@ defaults:
     topicSensors: "events/sensors"
     topicMeasurements: "events/measurements"
     topicToeState: "toe/state"
+    topicToeEventsInference: "toe/events/inference"
+    topicToeEventsMovements: "toe/events/movements"
+    topicToeEventsAlerts: "toe/events/alerts"
+    topicToeEventsStaleAlerts: "toe/events/stale-alerts"
     topicToeEvents: "toe/events"
-    topicToeCommands: "toe/commands/devstudio"
+    topicToeCommands: "toe/commands/framerates"
     topicToeFileCommands: "toe/commands/file"
-    topicAllDevices: "/devices/+/events"
+    topicAllDevicesEvents: "/devices/+/events"
     topicFileTransfers: "/devices/+/events/file/+"
+    topicDevicesEventsAlerts: "/devices/+/events/alerts"
+    topicDevicesEventsStaleAlerts: "/devices/+/events/stale-alerts"
   resources:
     limits:
       cpu: 2000m
@@ -85,8 +107,8 @@ defaults:
     hasAnnotations: true
     annotationsBucketPath: "media/annotations"
     snapshotBucketPath: "media/snapshots"
-    staleSeconds: 30 # seconds
   alerts:
+    staleSeconds: 30 # seconds
     personDownInterval: 10
     personDownScoreThreshold: 0.85
     personUpScoreThreshold: 0.75
@@ -94,11 +116,16 @@ defaults:
     loiteringLabels: "person" # supports multiple labels via comma separated list
     sensorsNodeData: "{}"
     loiteringThreshold: 60 # 60 seconds
+    loiteringCountThreshold: 30
     loiteringCheckStationary: true
     loiteringStationaryThreshold: 0.01 # 1% of FOV
+    safeOpenInferUniqueId: 0
     safeOpenWindowSizeSeconds: 5 # Default window size of 5 seconds
-    numberOfDominantLabels: 5
-    motionAlertMinInterval: 30 # 30 seconds
+    dominantLabelsMinCount: 5
+    dominantLabelsMinDuration: 5 # 5 seconds
+    dominantLabelsAlertCooldownTime: 60 # 60 seconds
+    motionCheckInterval: 1000 # 1 second
+    motionAlertCooldownTime: 60 # 60 seconds
     alertHeatmapEnabled: true
     alertHeatmapGridSize: 20  # NXN grid size
     alertHeatmapEventsRetentionPeriod: 86400 # 24h = 86400 seconds
