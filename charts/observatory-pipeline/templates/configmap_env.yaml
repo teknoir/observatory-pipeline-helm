@@ -46,6 +46,7 @@ data:
   MQTT_TOPIC_DEVICES_FILE_TRANSFERS: "{{ default $.Values.defaults.mqtt.topicFileTransfers (default (dict "topicFileTransfers" $.Values.defaults.mqtt.topicFileTransfers) .mqtt).topicFileTransfers }}"
   MQTT_TOPIC_DEVICES_EVENTS_ALERTS: "{{ default $.Values.defaults.mqtt.topicDevicesEventsAlerts (default (dict "topicDevicesEventsAlerts" $.Values.defaults.mqtt.topicDevicesEventsAlerts) .mqtt).topicDevicesEventsAlerts }}"
   MQTT_TOPIC_DEVICES_EVENTS_STALE_ALERTS: "{{ default $.Values.defaults.mqtt.topicDevicesEventsStaleAlerts (default (dict "topicDevicesEventsStaleAlerts" $.Values.defaults.mqtt.topicDevicesEventsStaleAlerts) .mqtt).topicDevicesEventsStaleAlerts }}"
+  MQTT_TOPIC_FACES: "{{ default $.Values.defaults.mqtt.topicFaces (default (dict "topicFaces" $.Values.defaults.mqtt.topicFaces) .mqtt).topicFaces }}"
 
   # Frontend
   FRONT_END_DEFAULT_INTERVAL: "{{ default $.Values.defaults.fe.frontEndDefaultInterval (default (dict "frontEndDefaultInterval" $.Values.defaults.fe.frontEndDefaultInterval) .fe).frontEndDefaultInterval }}"
@@ -138,4 +139,14 @@ data:
   # Metrics
   METRICS_INTERVAL: "{{ default $.Values.defaults.metrics.interval (default (dict "interval" $.Values.defaults.metrics.interval) .metrics).interval }}"
   METRICS_PORT: "{{ default $.Values.defaults.metrics.port (default (dict "port" $.Values.defaults.metrics.port) .metrics).port }}"
+
+  # Face Recognition
+  COMPREFACE_HOST: "{{ default $.Values.defaults.facerec.compreFaceHost (default (dict "compreFaceHost" $.Values.defaults.facerec.compreFaceHost) .facerec).compreFaceHost }}"
+  COMPREFACE_PORT: "{{ default $.Values.defaults.facerec.compreFacePort (default (dict "compreFacePort" $.Values.defaults.facerec.compreFacePort) .facerec).compreFacePort }}"
+  COMPREFACE_API_KEY: "{{ default $.Values.defaults.facerec.compreFaceApiKey (default (dict "compreFaceApiKey" $.Values.defaults.facerec.compreFaceApiKey) .facerec).compreFaceApiKey }}"
+  FACE_RETENTION: "{{ default $.Values.defaults.facerec.faceRetention (default (dict "faceRetention" $.Values.defaults.facerec.faceRetention) .facerec).faceRetention }}"
+  FACE_REC_INTERVAL: "{{ default $.Values.defaults.facerec.faceRecInterval (default (dict "faceRecInterval" $.Values.defaults.facerec.faceRecInterval) .facerec).faceRecInterval }}"
+  FACE_IMAGE_SIZE: "{{ default $.Values.defaults.facerec.faceImageSize (default (dict "faceImageSize" $.Values.defaults.facerec.faceImageSize) .facerec).faceImageSize }}"
+  FACE_REC_THRESHOLD: "{{ default $.Values.defaults.facerec.faceRecThreshold (default (dict "faceRecThreshold" $.Values.defaults.facerec.faceRecThreshold) .facerec).faceRecThreshold }}"
+
 {{- end }}

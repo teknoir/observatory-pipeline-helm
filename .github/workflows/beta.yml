@@ -29,6 +29,16 @@ jobs:
         env:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
 
+      - name: Check chart beta version
+        id: check_chart_version
+        run: |
+          CHART_VERSION=$(find charts -name Chart.yaml -exec grep '^version:' {} \; | awk '{print $2}')
+          if [[ ! "$CHART_VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+-.+ ]]; then
+          echo "Chart version $CHART_VERSION is not in the format X.Y.Z-something"
+          exit 1
+          fi
+          echo "Chart version $CHART_VERSION is valid for beta release"
+
       - name: Run chart-releaser
         uses: helm/chart-releaser-action@v1.6.0
         env:
