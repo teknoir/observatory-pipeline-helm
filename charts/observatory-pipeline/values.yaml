@@ -142,7 +142,7 @@ defaults:
     port: "8000"
   facerec:
     compreFaceHost: "compreface-api"
-    compreFacePort: 8000
+    compreFacePort: 8080
     compreFaceApiKey: "changeme-compreface-api-key"
     faceRecInterval: 2000 # milliseconds
     faceRecThreshold: 0.51 # similarity threshold (different for each model)
