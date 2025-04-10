@@ -132,6 +132,10 @@ defaults:
     alertHeatmapEventsRetentionPeriod: 86400 # 24h = 86400 seconds
     alertHeatmapAlertsToFilter: "loitering,person_down" # Alerts to filter out from the heatmap, e.g. "loitering"
     alertHeatmapPercentileThreshold: 95.0 # 95% percentile
+    handsUpInterval: 5000 # milliseconds
+    handsUpDetections: 20 # number of detections to consider hands up
+    runningInterval: 1500 # milliseconds
+    runningVelocityThreshold: 3.0 # meters per second
   # Deprecated and will be removed in future versions when we find a new way to handle this
   labels:
     deviceID: "test-device"

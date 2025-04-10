@@ -149,4 +149,12 @@ data:
   FACE_IMAGE_SIZE: "{{ default $.Values.defaults.facerec.faceImageSize (default (dict "faceImageSize" $.Values.defaults.facerec.faceImageSize) .facerec).faceImageSize }}"
   FACE_REC_THRESHOLD: "{{ default $.Values.defaults.facerec.faceRecThreshold (default (dict "faceRecThreshold" $.Values.defaults.facerec.faceRecThreshold) .facerec).faceRecThreshold }}"
 
+  # Hands Up
+  HANDS_UP_INTERVAL: "{{ default $.Values.defaults.alerts.handsUpInterval (default (dict "handsUpInterval" $.Values.defaults.alerts.handsUpInterval) .alerts).handsUpInterval }}"
+  MIN_HANDS_UP_DETECTIONS: "{{ default $.Values.defaults.alerts.handsUpDetections (default (dict "handsUpDetections" $.Values.defaults.alerts.handsUpDetections) .alerts).handsUpDetections }}"
+
+  # Running
+  RUNNING_INTERVAL: "{{ default $.Values.defaults.alerts.runningInterval (default (dict "runningInterval" $.Values.defaults.alerts.runningInterval) .alerts).runningInterval }}"
+  RUNNING_VELOCITY_THRESHOLD: "{{ default $.Values.defaults.alerts.runningVelocityThreshold (default (dict "runningVelocityThreshold" $.Values.defaults.alerts.runningVelocityThreshold) .alerts).runningVelocityThreshold }}"
+
 {{- end }}
