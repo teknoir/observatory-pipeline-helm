@@ -34,7 +34,7 @@ defaults:
     teknoir.org/managed-by: devstudio
   image:
     repository: us-docker.pkg.dev/teknoir/gcr.io/observatory-event-processing
-    tag: compreface-20250325-093200
+    tag: dev-58f25a3
   # Set the log level for the nvr
   # - DEBUG
   # - INFO
