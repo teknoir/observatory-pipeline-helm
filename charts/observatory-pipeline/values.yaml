@@ -110,6 +110,7 @@ defaults:
     snapshotBucketPath: "media/snapshots"
   alerts:
     staleSeconds: 30 # seconds
+    clipRealRunupCalculation: true
     personDownInterval: 10
     personDownScoreThreshold: 0.85
     personUpScoreThreshold: 0.75
@@ -132,6 +133,7 @@ defaults:
     alertHeatmapEventsRetentionPeriod: 86400 # 24h = 86400 seconds
     alertHeatmapAlertsToFilter: "loitering,person_down" # Alerts to filter out from the heatmap, e.g. "loitering"
     alertHeatmapPercentileThreshold: 95.0 # 95% percentile
+    alertHeatmapHardSupression: false
     handsUpInterval: 5000 # milliseconds
     handsUpDetections: 20 # number of detections to consider hands up
     runningInterval: 1500 # milliseconds
