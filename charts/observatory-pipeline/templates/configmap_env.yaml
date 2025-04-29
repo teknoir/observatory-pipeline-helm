@@ -72,6 +72,7 @@ data:
 
   # Alerts
   ALERT_STALE_SECONDS: "{{ default $.Values.defaults.alerts.staleSeconds (default (dict "staleSeconds" $.Values.defaults.alerts.staleSeconds) .alerts).staleSeconds }}"
+  VIDEO_CLIP_REAL_RUNUP_CALCULATION: "{{ default $.Values.defaults.alerts.clipRealRunupCalculation (default (dict "clipRealRunupCalculation" $.Values.defaults.alerts.clipRealRunupCalculation) .alerts).clipRealRunupCalculation }}"
 
   # Person Down
   PERSON_DOWN_INTERVAL: "{{ default $.Values.defaults.alerts.personDownInterval (default (dict "personDownInterval" $.Values.defaults.alerts.personDownInterval) .alerts).personDownInterval }}"
@@ -106,6 +107,7 @@ data:
   ALERT_HEATMAP_EVENTS_RETENTION_PERIOD: "{{ default $.Values.defaults.alerts.alertHeatmapEventsRetentionPeriod (default (dict "alertHeatmapEventsRetentionPeriod" $.Values.defaults.alerts.alertHeatmapEventsRetentionPeriod) .alerts).alertHeatmapEventsRetentionPeriod }}"
   ALERT_HEATMAP_ALERTS_TO_FILTER: "{{ default $.Values.defaults.alerts.alertHeatmapAlertsToFilter (default (dict "alertHeatmapAlertsToFilter" $.Values.defaults.alerts.alertHeatmapAlertsToFilter) .alerts).alertHeatmapAlertsToFilter }}"
   ALERT_HEATMAP_PERCENTILE_THRESHOLD: "{{ default $.Values.defaults.alerts.alertHeatmapPercentileThreshold (default (dict "alertHeatmapPercentileThreshold" $.Values.defaults.alerts.alertHeatmapPercentileThreshold) .alerts).alertHeatmapPercentileThreshold }}"
+  ALERT_HEATMAP_HARD_SUPRESSION: "{{ default $.Values.defaults.alerts.alertHeatmapHardSupression (default (dict "alertHeatmapHardSupression" $.Values.defaults.alerts.alertHeatmapHardSupression) .alerts).alertHeatmapHardSupression }}"
   
   # Deprecated in favor of Org Tree
   LABEL_DEVICE_ID: "{{ default $.Values.defaults.labels.deviceID (default (dict "deviceID" $.Values.defaults.labels.deviceID) .labels).deviceID }}"
