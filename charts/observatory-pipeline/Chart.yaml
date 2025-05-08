@@ -3,7 +3,7 @@ name: observatory-pipeline
 description: A Helm chart for Observatory Pipleine
 
 type: application
-version: 0.1.3-chart-fixing
+version: 0.1.3-chart-fixing.0
 appVersion: "2.0.1"
 
 dependencies:
