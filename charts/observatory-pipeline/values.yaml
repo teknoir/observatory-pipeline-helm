@@ -6,7 +6,7 @@ streams:
 defaults:
   # Application identification
   appName: observatory-event-processing-app
-  appVersion: 0.0.1
+  appVersion: 2.0.1
   clientId: observatory-ep
   
   # MongoDB connection
@@ -25,16 +25,12 @@ defaults:
   keydb:
     uri: keydb:6379
 
-  # MilvusDB connection
-  milvus:
-    uri: milvus:19530
-
   stream: update-frame-rate-control
   annotations:
     teknoir.org/managed-by: devstudio
   image:
     repository: us-docker.pkg.dev/teknoir/gcr.io/observatory-event-processing
-    tag: compreface-20250325-093200
+    tag: multicamid.weapon.2-not-committed
   # Set the log level for the nvr
   # - DEBUG
   # - INFO
@@ -87,7 +83,7 @@ defaults:
   historian:
     apiUrl: "http://historian-api:8000"
     recordDetectionsInterval: 333 # milliseconds
-    objectsToFilter: "car,truck,motorbike,person,face" # supports multiple labels via comma separated list
+    objectsToFilter: "person,car,truck,motorbike,gun,weapon" # supports multiple labels via comma separated list
   regions:
     iouThreshold: 0.001 # default Intersection Over Union (IOU) threshold for object detection inside region
   video:
@@ -133,9 +129,8 @@ defaults:
     alertHeatmapAlertsToFilter: "loitering,person_down" # Alerts to filter out from the heatmap, e.g. "loitering"
     alertHeatmapPercentileThreshold: 95.0 # 95% percentile
     handsUpInterval: 5000 # milliseconds
-    handsUpDetections: 20 # number of detections to consider hands up
-    runningInterval: 1500 # milliseconds
-    runningVelocityThreshold: 3.0 # meters per second
+    handsUpWindow: 5 # seconds
+    minHandsUpDetectionsPerSecond: 1.6 # 1.6 detections per second
   # Deprecated and will be removed in future versions when we find a new way to handle this
   labels:
     deviceID: "test-device"
@@ -152,3 +147,18 @@ defaults:
     faceRecThreshold: 0.51 # similarity threshold (different for each model)
     faceRetention: 24 # hours
     faceImageSize: 200 # pixels (width and height)
+  runningDetection:
+    interval: 500 # milliseconds -> window x4
+    velocityThreshold: 3.0 # meters per second
+  multicamId:
+    interval: 1000 # milliseconds
+    embeddingsRetention: 60 # seconds
+    affinityMatrixRetention: 60 # seconds
+    similarityThreshold: 0.7981 # similarity threshold
+  weaponsDetection:
+    objectClasses: "gun,weapon"
+    interval: 1000 # milliseconds
+    window: 5 # seconds
+    minDetectionsPerSecond: 1.8 # detections per second
+
+

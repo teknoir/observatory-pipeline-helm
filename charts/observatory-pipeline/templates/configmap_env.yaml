@@ -129,9 +129,6 @@ data:
   # KeyDB
   KEYDB_DB_URI: "{{ default $.Values.defaults.keydb.uri (default (dict "uri" $.Values.defaults.keydb.uri) .keydb).uri }}"
 
-  # MilvusDB
-  MILVUS_DB_URI: "{{ default $.Values.defaults.milvus.uri (default (dict "uri" $.Values.defaults.milvus.uri) .milvus).uri }}"
-
   # Video directories
   VIDEO_DIRECTORY: "{{ default $.Values.defaults.video.directory (default (dict "directory" $.Values.defaults.video.directory) .video).directory }}"
   VIDEO_TEMP_DIRECTORY: "{{ default $.Values.defaults.video.tempDirectory (default (dict "tempDirectory" $.Values.defaults.video.tempDirectory) .video).tempDirectory }}"
@@ -151,10 +148,22 @@ data:
 
   # Hands Up
   HANDS_UP_INTERVAL: "{{ default $.Values.defaults.alerts.handsUpInterval (default (dict "handsUpInterval" $.Values.defaults.alerts.handsUpInterval) .alerts).handsUpInterval }}"
-  MIN_HANDS_UP_DETECTIONS: "{{ default $.Values.defaults.alerts.handsUpDetections (default (dict "handsUpDetections" $.Values.defaults.alerts.handsUpDetections) .alerts).handsUpDetections }}"
+  HANDS_UP_WINDOW: "{{ default $.Values.defaults.alerts.handsUpWindow (default (dict "handsUpWindow" $.Values.defaults.alerts.handsUpWindow) .alerts).handsUpWindow }}"
+  MIN_HANDS_UP_DETECTIONS_PER_SECOND: "{{ default $.Values.defaults.alerts.minHandsUpDetectionsPerSecond (default (dict "minHandsUpDetectionsPerSecond" $.Values.defaults.alerts.minHandsUpDetectionsPerSecond) .alerts).minHandsUpDetectionsPerSecond }}"
 
   # Running
-  RUNNING_INTERVAL: "{{ default $.Values.defaults.alerts.runningInterval (default (dict "runningInterval" $.Values.defaults.alerts.runningInterval) .alerts).runningInterval }}"
-  RUNNING_VELOCITY_THRESHOLD: "{{ default $.Values.defaults.alerts.runningVelocityThreshold (default (dict "runningVelocityThreshold" $.Values.defaults.alerts.runningVelocityThreshold) .alerts).runningVelocityThreshold }}"
+  RUNNING_INTERVAL: "{{ default $.Values.defaults.runningDetection.interval (default (dict "interval" $.Values.defaults.runningDetection.interval) .runningDetection).interval }}"
+  RUNNING_VELOCITY_THRESHOLD: "{{ default $.Values.defaults.runningDetection.velocityThreshold (default (dict "velocityThreshold" $.Values.defaults.runningDetection.velocityThreshold) .runningDetection).velocityThreshold }}"
 
+  # Multicam ID
+  MULTICAM_ID_INTERVAL: "{{ default $.Values.defaults.multicamId.interval (default (dict "interval" $.Values.defaults.multicamId.interval) .multicamId).interval }}"
+  MULTI_CAM_EMBEDDING_RETENTION: "{{ default $.Values.defaults.multicamId.embeddingsRetention (default (dict "embeddingsRetention" $.Values.defaults.multicamId.embeddingsRetention) .multicamId).embeddingsRetention }}"
+  MULTI_CAM_AFFINITY_MATRIX_RETENTION: "{{ default $.Values.defaults.multicamId.affinityMatrixRetention (default (dict "affinityMatrixRetention" $.Values.defaults.multicamId.affinityMatrixRetention) .multicamId).affinityMatrixRetention }}"
+  MULTI_CAM_SIMILARITY_THRESHOLD: "{{ default $.Values.defaults.multicamId.similarityThreshold (default (dict "similarityThreshold" $.Values.defaults.multicamId.similarityThreshold) .multicamId).similarityThreshold }}"
+
+  # Weapons Detection
+  WEAPON_OBJECT_CLASSES: "{{ default $.Values.defaults.weaponsDetection.objectClasses (default (dict "objectClasses" $.Values.defaults.weaponsDetection.objectClasses) .weaponsDetection).objectClasses }}"
+  WEAPONS_INTERVAL: "{{ default $.Values.defaults.weaponsDetection.interval (default (dict "interval" $.Values.defaults.weaponsDetection.interval) .weaponsDetection).interval }}"
+  WEAPONS_WINDOW: "{{ default $.Values.defaults.weaponsDetection.window (default (dict "window" $.Values.defaults.weaponsDetection.window) .weaponsDetection).window }}"
+  MIN_WEAPONS_DETECTIONS_PER_SECOND: "{{ default $.Values.defaults.weaponsDetection.minDetectionsPerSecond (default (dict "minDetectionsPerSecond" $.Values.defaults.weaponsDetection.minDetectionsPerSecond) .weaponsDetection).minDetectionsPerSecond }}"
 {{- end }}
