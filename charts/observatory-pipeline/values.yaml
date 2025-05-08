@@ -30,7 +30,7 @@ defaults:
     teknoir.org/managed-by: devstudio
   image:
     repository: us-docker.pkg.dev/teknoir/gcr.io/observatory-event-processing
-    tag: multicamid.weapon.2-not-committed
+    tag: dev-91d0f56
   # Set the log level for the nvr
   # - DEBUG
   # - INFO
