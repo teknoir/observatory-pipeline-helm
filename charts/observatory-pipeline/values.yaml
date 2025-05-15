@@ -30,7 +30,7 @@ defaults:
     teknoir.org/managed-by: devstudio
   image:
     repository: us-docker.pkg.dev/teknoir/gcr.io/observatory-event-processing
-    tag: multicamid.weapon.2-not-committed
+    tag: weaponscore.3-not-committed
   # Set the log level for the nvr
   # - DEBUG
   # - INFO
@@ -159,8 +159,9 @@ defaults:
     similarityThreshold: 0.7981 # similarity threshold
   weaponsDetection:
     objectClasses: "gun,weapon"
-    interval: 1000 # milliseconds
-    window: 5 # seconds
+    scoreThreshold: 0.6 # score threshold
+    interval: 500 # milliseconds
+    window: 1 # seconds
     minDetectionsPerSecond: 1.8 # detections per second
 
 

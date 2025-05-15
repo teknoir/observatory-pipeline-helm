@@ -165,6 +165,7 @@ data:
 
   # Weapons Detection
   WEAPON_OBJECT_CLASSES: "{{ default $.Values.defaults.weaponsDetection.objectClasses (default (dict "objectClasses" $.Values.defaults.weaponsDetection.objectClasses) .weaponsDetection).objectClasses }}"
+  WEAPONS_SCORE_THRESHOLD: "{{ default $.Values.defaults.weaponsDetection.scoreThreshold (default (dict "scoreThreshold" $.Values.defaults.weaponsDetection.scoreThreshold) .weaponsDetection).scoreThreshold }}"
   WEAPONS_INTERVAL: "{{ default $.Values.defaults.weaponsDetection.interval (default (dict "interval" $.Values.defaults.weaponsDetection.interval) .weaponsDetection).interval }}"
   WEAPONS_WINDOW: "{{ default $.Values.defaults.weaponsDetection.window (default (dict "window" $.Values.defaults.weaponsDetection.window) .weaponsDetection).window }}"
   MIN_WEAPONS_DETECTIONS_PER_SECOND: "{{ default $.Values.defaults.weaponsDetection.minDetectionsPerSecond (default (dict "minDetectionsPerSecond" $.Values.defaults.weaponsDetection.minDetectionsPerSecond) .weaponsDetection).minDetectionsPerSecond }}"
