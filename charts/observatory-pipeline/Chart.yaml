@@ -3,12 +3,12 @@ name: observatory-pipeline
 description: A Helm chart for Observatory Pipleine
 
 type: application
-version: 0.1.3-chart-fixing.1
+version: 0.1.3-chart-fixing.2
 appVersion: "2.0.1"
 
 dependencies:
   - name: file-transfer
-    version: 0.0.5
+    version: 0.0.6
     repository: https://teknoir.github.io/file-transfer-helm
   - name: clickhouse
     version: 0.1.9
