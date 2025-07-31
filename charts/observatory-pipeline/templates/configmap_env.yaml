@@ -169,4 +169,9 @@ data:
   WEAPONS_INTERVAL: "{{ default $.Values.defaults.weaponsDetection.interval (default (dict "interval" $.Values.defaults.weaponsDetection.interval) .weaponsDetection).interval }}"
   WEAPONS_WINDOW: "{{ default $.Values.defaults.weaponsDetection.window (default (dict "window" $.Values.defaults.weaponsDetection.window) .weaponsDetection).window }}"
   MIN_WEAPONS_DETECTIONS_PER_SECOND: "{{ default $.Values.defaults.weaponsDetection.minDetectionsPerSecond (default (dict "minDetectionsPerSecond" $.Values.defaults.weaponsDetection.minDetectionsPerSecond) .weaponsDetection).minDetectionsPerSecond }}"
+
+  # Face Cover Detection
+  FACE_COVER_THRESHOLD: "{{ default $.Values.defaults.faceCoverDetection.threshold (default (dict "threshold" $.Values.defaults.faceCoverDetection.threshold) .faceCoverDetection).threshold }}"
+  FACE_COVER_WINDOW_SIZE: "{{ default $.Values.defaults.faceCoverDetection.windowSize (default (dict "windowSize" $.Values.defaults.faceCoverDetection.windowSize) .faceCoverDetection).windowSize }}"
+  FACE_COVER_SLIDING_INTERVAL: "{{ default $.Values.defaults.faceCoverDetection.slidingInterval (default (dict "slidingInterval" $.Values.defaults.faceCoverDetection.slidingInterval) .faceCoverDetection).slidingInterval }}"
 {{- end }}

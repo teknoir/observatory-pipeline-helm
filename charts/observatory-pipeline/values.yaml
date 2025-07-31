@@ -163,5 +163,7 @@ defaults:
     interval: 500 # milliseconds
     window: 1 # seconds
     minDetectionsPerSecond: 1.8 # detections per second
-
-
+  faceCoverDetection:
+    threshold: 0.8 # threshold
+    windowSize: 5000 # milliseconds
+    slidingInterval: 500 # milliseconds
