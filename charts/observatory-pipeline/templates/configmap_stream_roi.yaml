@@ -1,0 +1,24 @@
+{{- range .Values.streams }}
+{{- if (default $.Values.defaults.roiStreamConfig.enabled .roiStreamConfig.enabled) }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .stream }}-roi-config
+  namespace: {{ $.Release.Namespace }}
+  labels:
+    app: stream-{{ .stream }}
+  annotations:
+    {{- toYaml (default $.Values.defaults.annotations .annotations) | nindent 4 }}
+data:
+{{- $config := tpl (default $.Values.defaults.roiStreamConfig.config (default (dict "config" $.Values.defaults.roiStreamConfig.config) .roiStreamConfig).config) . }}
+{{- range $line := splitList "\n" $config }}
+{{- if and $line (ne (trim $line) "") }}
+{{- $kv := splitList ":" $line }}
+{{- if eq (len $kv) 2 }}
+  {{ trim (index $kv 0) | upper }}: {{ trim (index $kv 1) | quote }}
+{{- end }}
+{{- end }}
+{{- end }}
+{{- end -}}
+{{- end }}

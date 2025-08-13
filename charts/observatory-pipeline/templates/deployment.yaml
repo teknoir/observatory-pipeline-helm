@@ -28,6 +28,10 @@ spec:
           envFrom:
             - configMapRef:
                 name: stream-{{ .stream }}-env-config
+            {{- if (default $.Values.defaults.roiStreamConfig.enabled .roiStreamConfig.enabled) }}
+            - configMapRef:
+                name: {{ .stream }}-roi-config
+            {{- end }}
           resources:
             {{- toYaml (default $.Values.defaults.resources .resources) | nindent 12 }}
           volumeMounts:
