@@ -1,5 +1,11 @@
 {{- range .Values.streams }}
-{{- if (default $.Values.defaults.roiStreamConfig.enabled .roiStreamConfig.enabled) }}
+{{- $roiEnabled := false }}
+{{- if .roiStreamConfig }}
+  {{- $roiEnabled = .roiStreamConfig.enabled }}
+{{- else if $.Values.defaults.roiStreamConfig }}
+  {{- $roiEnabled = $.Values.defaults.roiStreamConfig.enabled }}
+{{- end }}
+{{- if $roiEnabled }}
 ---
 apiVersion: v1
 kind: ConfigMap

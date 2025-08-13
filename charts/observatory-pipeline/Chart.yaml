@@ -3,7 +3,7 @@ name: observatory-pipeline
 description: A Helm chart for Observatory Pipeline
 
 type: application
-version: 0.1.6-beta
+version: 0.1.7-beta
 appVersion: "2.0.1"
 
 dependencies:

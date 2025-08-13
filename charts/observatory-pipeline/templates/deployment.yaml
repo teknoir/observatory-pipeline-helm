@@ -28,7 +28,13 @@ spec:
           envFrom:
             - configMapRef:
                 name: stream-{{ .stream }}-env-config
-            {{- if (default $.Values.defaults.roiStreamConfig.enabled .roiStreamConfig.enabled) }}
+            {{- $roiEnabled := false }}
+            {{- if .roiStreamConfig }}
+              {{- $roiEnabled = .roiStreamConfig.enabled }}
+            {{- else if $.Values.defaults.roiStreamConfig }}
+              {{- $roiEnabled = $.Values.defaults.roiStreamConfig.enabled }}
+            {{- end }}
+            {{- if $roiEnabled }}
             - configMapRef:
                 name: {{ .stream }}-roi-config
             {{- end }}
