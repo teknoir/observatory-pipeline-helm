@@ -1,13 +1,13 @@
 # Example for minimal configuration
 streams:
   - stream: update-frame-rate-control
-    roiStreamConfig:
-      enabled: false
+    # roiStreamConfig:
+    #   enabled: false
   - stream: record-detections
-    roiStreamConfig:
-      enabled: true
-      config: |
-          roi-loitering-Exclusion-Zone-0: "0;0;100;0;100;100;0;100"
+    # roiStreamConfig:
+    #   enabled: true
+    #   config: |
+    #       roi-loitering-Exclusion-Zone-xxx: "0;0;100;0;100;100;0;100"
 
 # Values possible for Observatory Pipelines
 defaults:
