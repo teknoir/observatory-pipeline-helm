@@ -22,7 +22,7 @@ data:
 {{- if and $line (ne (trim $line) "") }}
 {{- $kv := splitList ":" $line }}
 {{- if eq (len $kv) 2 }}
-  {{ trim (index $kv 0) | upper }}: {{ trim (index $kv 1) | quote }}
+  {{ trim (index $kv 0) | replace "-" "_" | upper }}: {{ trim (index $kv 1) | quote }}
 {{- end }}
 {{- end }}
 {{- end }}
