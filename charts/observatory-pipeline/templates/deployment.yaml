@@ -28,6 +28,9 @@ spec:
           envFrom:
             - configMapRef:
                 name: stream-{{ .stream }}-env-config
+          resources:
+            {{- toYaml (default $.Values.defaults.resources .resources) | nindent 12 }}
+          volumeMounts:
             {{- $roiEnabled := false }}
             {{- if .roiStreamConfig }}
               {{- $roiEnabled = .roiStreamConfig.enabled }}
@@ -35,12 +38,10 @@ spec:
               {{- $roiEnabled = $.Values.defaults.roiStreamConfig.enabled }}
             {{- end }}
             {{- if $roiEnabled }}
-            - configMapRef:
-                name: stream-{{ .stream }}-roi-config
+            - name: roi-config
+              mountPath: /etc/roi-config.yaml
+              subPath: roi-config.yaml
             {{- end }}
-          resources:
-            {{- toYaml (default $.Values.defaults.resources .resources) | nindent 12 }}
-          volumeMounts:
             {{- if (default $.Values.defaults.video.mountSegmentPath (default (dict "mountSegmentPath" $.Values.defaults.video.mountSegmentPath) .video).mountSegmentPath) }}
             - name: segments
               mountPath: /videos
@@ -50,6 +51,17 @@ spec:
               mountPath: /video-tmp
             {{- end }}
       volumes:
+        {{- $roiEnabled := false }}
+        {{- if .roiStreamConfig }}
+          {{- $roiEnabled = .roiStreamConfig.enabled }}
+        {{- else if $.Values.defaults.roiStreamConfig }}
+          {{- $roiEnabled = $.Values.defaults.roiStreamConfig.enabled }}
+        {{- end }}
+        {{- if $roiEnabled }}
+        - name: roi-config
+          configMap:
+            name: stream-{{ .stream }}-roi-config
+        {{- end }}
         {{- if (default $.Values.defaults.video.mountSegmentPath (default (dict "mountSegmentPath" $.Values.defaults.video.mountSegmentPath) .video).mountSegmentPath) }}
         - name: segments
           hostPath:

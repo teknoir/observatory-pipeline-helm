@@ -1,13 +1,7 @@
 # Example for minimal configuration
 streams:
   - stream: update-frame-rate-control
-    # roiStreamConfig:
-    #   enabled: false
   - stream: record-detections
-    # roiStreamConfig:
-    #   enabled: true
-    #   config: |
-    #       roi-loitering-Exclusion-Zone-xxx: "0;0;100;0;100;100;0;100"
 
 # Values possible for Observatory Pipelines
 defaults:
@@ -15,8 +9,20 @@ defaults:
 # Added from NVR config
   roiStreamConfig:
     enabled: false
-    config: |
-        roi-loitering-Exclusion-Zone-0: "0;0;100;0;100;100;0;100"
+    peripherals:
+      - name: nc0009-pos
+        roi-config:
+          config-width: 1920
+          config-height: 1080
+          roi-filtering-Exclusion-Zone-0: "0;0;20;0;65;279;433;111;425;38;462;0;540;0;612;46;785;0;1920;0;1920;1080;0;1080"
+
+      - name: nc0009-back-door
+        roi-config:
+          config-width: 1920
+          config-height: 1080
+          roi-filtering-Exclusion-Zone-0: "0;0;1920;0;1920;1080;0;1080"
+          line-crossing-back-room-Entry-0: "705;586;745;782;590;813;899;750"
+          line-crossing-back-room-Exit-0: "784;978;745;782;899;750;590;813"
         
   # Application identification
   appName: observatory-event-processing-app
