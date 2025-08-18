@@ -39,7 +39,7 @@ spec:
             {{- end }}
             {{- if $roiEnabled }}
             - name: roi-config
-              mountPath: /etc/roi-config.yaml
+              mountPath: /data/roi-config/roi-config.yaml
               subPath: roi-config.yaml
             {{- end }}
             {{- if (default $.Values.defaults.video.mountSegmentPath (default (dict "mountSegmentPath" $.Values.defaults.video.mountSegmentPath) .video).mountSegmentPath) }}
