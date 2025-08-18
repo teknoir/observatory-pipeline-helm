@@ -27,5 +27,5 @@ data:
           {{ $key }}: {{ $value | quote }}
 {{- end }}
 {{- end }}
-{{- end -}}
 {{- end }}
+{{- end -}}
