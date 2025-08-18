@@ -17,14 +17,15 @@ metadata:
   annotations:
     {{- toYaml (default $.Values.defaults.annotations .annotations) | nindent 4 }}
 data:
-{{- $config := tpl (default $.Values.defaults.roiStreamConfig.config (default (dict "config" $.Values.defaults.roiStreamConfig.config) .roiStreamConfig).config) . }}
-{{- range $line := splitList "\n" $config }}
-{{- if and $line (ne (trim $line) "") }}
-{{- $kv := splitList ":" $line }}
-{{- if eq (len $kv) 2 }}
-  {{ trim (index $kv 0) | replace "-" "_" | upper }}: {{ trim (index $kv 1) | quote }}
+  roi-config.yaml: |
+{{- $peripherals := (default $.Values.defaults.roiStreamConfig.peripherals (default (dict "peripherals" $.Values.defaults.roiStreamConfig.peripherals) .roiStreamConfig).peripherals) }}
+    peripherals:
+{{- range $peripheral := $peripherals }}
+      - name: {{ $peripheral.name }}
+        roi-config:
+{{- range $key, $value := (index $peripheral "roi-config") }}
+          {{ $key }}: {{ $value | quote }}
 {{- end }}
 {{- end }}
 {{- end }}
 {{- end -}}
-{{- end }}
