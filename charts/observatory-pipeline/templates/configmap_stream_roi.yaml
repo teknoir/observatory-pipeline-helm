@@ -23,9 +23,7 @@ data:
 {{- range $peripheral := $peripherals }}
       - name: {{ $peripheral.name }}
         roi-config:
-{{- range $key, $value := (index $peripheral "roi-config") }}
-          {{ $key }}: {{ $value | quote }}
-{{- end }}
+{{- toYaml (index $peripheral "roi-config") | nindent 10 }}
 {{- end }}
 {{- end }}
 {{- end -}}
