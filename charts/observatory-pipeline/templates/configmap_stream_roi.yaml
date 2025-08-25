@@ -18,12 +18,7 @@ metadata:
     {{- toYaml (default $.Values.defaults.annotations .annotations) | nindent 4 }}
 data:
   roi-config.yaml: |
-{{- $peripherals := (default $.Values.defaults.roiStreamConfig.peripherals (default (dict "peripherals" $.Values.defaults.roiStreamConfig.peripherals) .roiStreamConfig).peripherals) }}
     peripherals:
-{{- range $peripheral := $peripherals }}
-      - name: {{ $peripheral.name }}
-        roi-config:
-{{- toYaml (index $peripheral "roi-config") | nindent 10 }}
-{{- end }}
+      {{- toYaml (default $.Values.defaults.roiStreamConfig.peripherals (default (dict "peripherals" $.Values.defaults.roiStreamConfig.peripherals) .roiStreamConfig).peripherals) | nindent 6 }}
 {{- end }}
 {{- end -}}

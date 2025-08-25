@@ -108,7 +108,7 @@ data:
   ALERT_HEATMAP_ALERTS_TO_FILTER: "{{ default $.Values.defaults.alerts.alertHeatmapAlertsToFilter (default (dict "alertHeatmapAlertsToFilter" $.Values.defaults.alerts.alertHeatmapAlertsToFilter) .alerts).alertHeatmapAlertsToFilter }}"
   ALERT_HEATMAP_PERCENTILE_THRESHOLD: "{{ default $.Values.defaults.alerts.alertHeatmapPercentileThreshold (default (dict "alertHeatmapPercentileThreshold" $.Values.defaults.alerts.alertHeatmapPercentileThreshold) .alerts).alertHeatmapPercentileThreshold }}"
   ALERT_HEATMAP_HARD_SUPRESSION: "{{ default $.Values.defaults.alerts.alertHeatmapHardSupression (default (dict "alertHeatmapHardSupression" $.Values.defaults.alerts.alertHeatmapHardSupression) .alerts).alertHeatmapHardSupression }}"
-  
+
   # Deprecated in favor of Org Tree
   LABEL_DEVICE_ID: "{{ default $.Values.defaults.labels.deviceID (default (dict "deviceID" $.Values.defaults.labels.deviceID) .labels).deviceID }}"
   LABEL_NAMESPACE: "{{ default $.Values.defaults.labels.namespace (default (dict "namespace" $.Values.defaults.labels.namespace) .labels).namespace }}"
@@ -174,4 +174,10 @@ data:
   FACE_COVER_THRESHOLD: "{{ default $.Values.defaults.faceCoverDetection.threshold (default (dict "threshold" $.Values.defaults.faceCoverDetection.threshold) .faceCoverDetection).threshold }}"
   FACE_COVER_WINDOW_SIZE: "{{ default $.Values.defaults.faceCoverDetection.windowSize (default (dict "windowSize" $.Values.defaults.faceCoverDetection.windowSize) .faceCoverDetection).windowSize }}"
   FACE_COVER_SLIDING_INTERVAL: "{{ default $.Values.defaults.faceCoverDetection.slidingInterval (default (dict "slidingInterval" $.Values.defaults.faceCoverDetection.slidingInterval) .faceCoverDetection).slidingInterval }}"
+
+  # Line Crossing - NC009
+  LINE_CROSSING_INTERVAL_MS: "1000"
+  LINE_CROSSING_WINDOW_MS: "5000"
+  LINE_CROSSING_VISUAL_DEBUG_ENABLED: "true"
+  LINE_CROSSING_VISUAL_DEBUG_PERIPHERAL_ID: "line-crossing-nc009-8-18"
 {{- end }}
