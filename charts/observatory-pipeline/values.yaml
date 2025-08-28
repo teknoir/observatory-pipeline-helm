@@ -188,3 +188,8 @@ defaults:
     threshold: 0.8 # threshold
     windowSize: 5000 # milliseconds
     slidingInterval: 500 # milliseconds
+  lineCrossing:
+    intervalMs: 1000 # milliseconds
+    windowMs: 5000 # milliseconds
+    visualDebugEnabled: false
+    visualDebugPeripheralId: ""
