@@ -93,8 +93,7 @@ spec:
         staleSeconds: 30 # seconds
       alerts:
         personDownInterval: 10
-        personDownScoreThreshold: 0.85
-        personUpScoreThreshold: 0.75
+        personDownDominantThreshold: 0.85
         personDownUpTotalCountThreshold: 10
         loiteringLabels: "person" # supports multiple labels via comma separated list
         sensorsNodeData: "{}"

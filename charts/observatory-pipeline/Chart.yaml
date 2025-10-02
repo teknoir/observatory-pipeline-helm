@@ -3,7 +3,7 @@ name: observatory-pipeline
 description: A Helm chart for Observatory Pipeline
 
 type: application
-version: 0.1.12-beta3-anders
+version: 0.1.12-beta4-anders
 appVersion: "2.0.1"
 
 dependencies:
@@ -16,3 +16,6 @@ dependencies:
   - name: keydb
     version: 0.1.3
     repository: https://teknoir.github.io/keydb-helm
+  - name: seaweedfs
+    version: 0.0.1
+    repository: https://teknoir.github.io/seaweedfs-helm

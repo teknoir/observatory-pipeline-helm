@@ -76,8 +76,7 @@ data:
 
   # Person Down
   PERSON_DOWN_INTERVAL: "{{ default $.Values.defaults.alerts.personDownInterval (default (dict "personDownInterval" $.Values.defaults.alerts.personDownInterval) .alerts).personDownInterval }}"
-  PERSON_DOWN_SCORE_THRESHOLD: "{{ default $.Values.defaults.alerts.personDownScoreThreshold (default (dict "personDownScoreThreshold" $.Values.defaults.alerts.personDownScoreThreshold) .alerts).personDownScoreThreshold }}"
-  PERSON_UP_SCORE_THRESHOLD: "{{ default $.Values.defaults.alerts.personUpScoreThreshold (default (dict "personUpScoreThreshold" $.Values.defaults.alerts.personUpScoreThreshold) .alerts).personUpScoreThreshold }}"
+  PERSON_DOWN_DOMINANT_THRESHOLD: "{{ default $.Values.defaults.alerts.personDownDominantThreshold (default (dict "personDownDominantThreshold" $.Values.defaults.alerts.personDownDominantThreshold) .alerts).personDownDominantThreshold }}"
   PERSON_DOWN_UP_TOTAL_COUNT_THRESHOLD: "{{ default $.Values.defaults.alerts.personDownUpTotalCountThreshold (default (dict "personDownUpTotalCountThreshold" $.Values.defaults.alerts.personDownUpTotalCountThreshold) .alerts).personDownUpTotalCountThreshold }}"
 
   # Sensors
