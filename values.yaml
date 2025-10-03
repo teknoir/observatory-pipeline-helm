@@ -21,4 +21,3 @@ streams:
   - stream: catalytic-theft
   # ALERT PROCESSING
   - stream: update-alerts
-

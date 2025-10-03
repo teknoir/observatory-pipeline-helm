@@ -46,6 +46,7 @@ data:
   MQTT_TOPIC_DEVICES_FILE_TRANSFERS: "{{ default $.Values.defaults.mqtt.topicFileTransfers (default (dict "topicFileTransfers" $.Values.defaults.mqtt.topicFileTransfers) .mqtt).topicFileTransfers }}"
   MQTT_TOPIC_DEVICES_EVENTS_ALERTS: "{{ default $.Values.defaults.mqtt.topicDevicesEventsAlerts (default (dict "topicDevicesEventsAlerts" $.Values.defaults.mqtt.topicDevicesEventsAlerts) .mqtt).topicDevicesEventsAlerts }}"
   MQTT_TOPIC_DEVICES_EVENTS_STALE_ALERTS: "{{ default $.Values.defaults.mqtt.topicDevicesEventsStaleAlerts (default (dict "topicDevicesEventsStaleAlerts" $.Values.defaults.mqtt.topicDevicesEventsStaleAlerts) .mqtt).topicDevicesEventsStaleAlerts }}"
+  MQTT_TOPIC_FACES: "{{ default $.Values.defaults.mqtt.topicFaces (default (dict "topicFaces" $.Values.defaults.mqtt.topicFaces) .mqtt).topicFaces }}"
 
   # Frontend
   FRONT_END_DEFAULT_INTERVAL: "{{ default $.Values.defaults.fe.frontEndDefaultInterval (default (dict "frontEndDefaultInterval" $.Values.defaults.fe.frontEndDefaultInterval) .fe).frontEndDefaultInterval }}"
@@ -71,6 +72,7 @@ data:
 
   # Alerts
   ALERT_STALE_SECONDS: "{{ default $.Values.defaults.alerts.staleSeconds (default (dict "staleSeconds" $.Values.defaults.alerts.staleSeconds) .alerts).staleSeconds }}"
+  VIDEO_CLIP_REAL_RUNUP_CALCULATION: "{{ default $.Values.defaults.alerts.clipRealRunupCalculation (default (dict "clipRealRunupCalculation" $.Values.defaults.alerts.clipRealRunupCalculation) .alerts).clipRealRunupCalculation }}"
 
   # Person Down
   PERSON_DOWN_INTERVAL: "{{ default $.Values.defaults.alerts.personDownInterval (default (dict "personDownInterval" $.Values.defaults.alerts.personDownInterval) .alerts).personDownInterval }}"
@@ -105,6 +107,7 @@ data:
   ALERT_HEATMAP_EVENTS_RETENTION_PERIOD: "{{ default $.Values.defaults.alerts.alertHeatmapEventsRetentionPeriod (default (dict "alertHeatmapEventsRetentionPeriod" $.Values.defaults.alerts.alertHeatmapEventsRetentionPeriod) .alerts).alertHeatmapEventsRetentionPeriod }}"
   ALERT_HEATMAP_ALERTS_TO_FILTER: "{{ default $.Values.defaults.alerts.alertHeatmapAlertsToFilter (default (dict "alertHeatmapAlertsToFilter" $.Values.defaults.alerts.alertHeatmapAlertsToFilter) .alerts).alertHeatmapAlertsToFilter }}"
   ALERT_HEATMAP_PERCENTILE_THRESHOLD: "{{ default $.Values.defaults.alerts.alertHeatmapPercentileThreshold (default (dict "alertHeatmapPercentileThreshold" $.Values.defaults.alerts.alertHeatmapPercentileThreshold) .alerts).alertHeatmapPercentileThreshold }}"
+  ALERT_HEATMAP_HARD_SUPRESSION: "{{ default $.Values.defaults.alerts.alertHeatmapHardSupression (default (dict "alertHeatmapHardSupression" $.Values.defaults.alerts.alertHeatmapHardSupression) .alerts).alertHeatmapHardSupression }}"
   
   # Deprecated in favor of Org Tree
   LABEL_DEVICE_ID: "{{ default $.Values.defaults.labels.deviceID (default (dict "deviceID" $.Values.defaults.labels.deviceID) .labels).deviceID }}"
@@ -128,9 +131,6 @@ data:
   # KeyDB
   KEYDB_DB_URI: "{{ default $.Values.defaults.keydb.uri (default (dict "uri" $.Values.defaults.keydb.uri) .keydb).uri }}"
 
-  # MilvusDB
-  MILVUS_DB_URI: "{{ default $.Values.defaults.milvus.uri (default (dict "uri" $.Values.defaults.milvus.uri) .milvus).uri }}"
-
   # Video directories
   VIDEO_DIRECTORY: "{{ default $.Values.defaults.video.directory (default (dict "directory" $.Values.defaults.video.directory) .video).directory }}"
   VIDEO_TEMP_DIRECTORY: "{{ default $.Values.defaults.video.tempDirectory (default (dict "tempDirectory" $.Values.defaults.video.tempDirectory) .video).tempDirectory }}"
@@ -138,4 +138,34 @@ data:
   # Metrics
   METRICS_INTERVAL: "{{ default $.Values.defaults.metrics.interval (default (dict "interval" $.Values.defaults.metrics.interval) .metrics).interval }}"
   METRICS_PORT: "{{ default $.Values.defaults.metrics.port (default (dict "port" $.Values.defaults.metrics.port) .metrics).port }}"
+
+  # Face Recognition
+  COMPREFACE_HOST: "{{ default $.Values.defaults.facerec.compreFaceHost (default (dict "compreFaceHost" $.Values.defaults.facerec.compreFaceHost) .facerec).compreFaceHost }}"
+  COMPREFACE_PORT: "{{ default $.Values.defaults.facerec.compreFacePort (default (dict "compreFacePort" $.Values.defaults.facerec.compreFacePort) .facerec).compreFacePort }}"
+  COMPREFACE_API_KEY: "{{ default $.Values.defaults.facerec.compreFaceApiKey (default (dict "compreFaceApiKey" $.Values.defaults.facerec.compreFaceApiKey) .facerec).compreFaceApiKey }}"
+  FACE_RETENTION: "{{ default $.Values.defaults.facerec.faceRetention (default (dict "faceRetention" $.Values.defaults.facerec.faceRetention) .facerec).faceRetention }}"
+  FACE_REC_INTERVAL: "{{ default $.Values.defaults.facerec.faceRecInterval (default (dict "faceRecInterval" $.Values.defaults.facerec.faceRecInterval) .facerec).faceRecInterval }}"
+  FACE_IMAGE_SIZE: "{{ default $.Values.defaults.facerec.faceImageSize (default (dict "faceImageSize" $.Values.defaults.facerec.faceImageSize) .facerec).faceImageSize }}"
+  FACE_REC_THRESHOLD: "{{ default $.Values.defaults.facerec.faceRecThreshold (default (dict "faceRecThreshold" $.Values.defaults.facerec.faceRecThreshold) .facerec).faceRecThreshold }}"
+
+  # Hands Up
+  HANDS_UP_INTERVAL: "{{ default $.Values.defaults.alerts.handsUpInterval (default (dict "handsUpInterval" $.Values.defaults.alerts.handsUpInterval) .alerts).handsUpInterval }}"
+  HANDS_UP_WINDOW: "{{ default $.Values.defaults.alerts.handsUpWindow (default (dict "handsUpWindow" $.Values.defaults.alerts.handsUpWindow) .alerts).handsUpWindow }}"
+  MIN_HANDS_UP_DETECTIONS_PER_SECOND: "{{ default $.Values.defaults.alerts.minHandsUpDetectionsPerSecond (default (dict "minHandsUpDetectionsPerSecond" $.Values.defaults.alerts.minHandsUpDetectionsPerSecond) .alerts).minHandsUpDetectionsPerSecond }}"
+
+  # Running
+  RUNNING_INTERVAL: "{{ default $.Values.defaults.runningDetection.interval (default (dict "interval" $.Values.defaults.runningDetection.interval) .runningDetection).interval }}"
+  RUNNING_VELOCITY_THRESHOLD: "{{ default $.Values.defaults.runningDetection.velocityThreshold (default (dict "velocityThreshold" $.Values.defaults.runningDetection.velocityThreshold) .runningDetection).velocityThreshold }}"
+
+  # Multicam ID
+  MULTICAM_ID_INTERVAL: "{{ default $.Values.defaults.multicamId.interval (default (dict "interval" $.Values.defaults.multicamId.interval) .multicamId).interval }}"
+  MULTI_CAM_EMBEDDING_RETENTION: "{{ default $.Values.defaults.multicamId.embeddingsRetention (default (dict "embeddingsRetention" $.Values.defaults.multicamId.embeddingsRetention) .multicamId).embeddingsRetention }}"
+  MULTI_CAM_AFFINITY_MATRIX_RETENTION: "{{ default $.Values.defaults.multicamId.affinityMatrixRetention (default (dict "affinityMatrixRetention" $.Values.defaults.multicamId.affinityMatrixRetention) .multicamId).affinityMatrixRetention }}"
+  MULTI_CAM_SIMILARITY_THRESHOLD: "{{ default $.Values.defaults.multicamId.similarityThreshold (default (dict "similarityThreshold" $.Values.defaults.multicamId.similarityThreshold) .multicamId).similarityThreshold }}"
+
+  # Weapons Detection
+  WEAPON_OBJECT_CLASSES: "{{ default $.Values.defaults.weaponsDetection.objectClasses (default (dict "objectClasses" $.Values.defaults.weaponsDetection.objectClasses) .weaponsDetection).objectClasses }}"
+  WEAPONS_INTERVAL: "{{ default $.Values.defaults.weaponsDetection.interval (default (dict "interval" $.Values.defaults.weaponsDetection.interval) .weaponsDetection).interval }}"
+  WEAPONS_WINDOW: "{{ default $.Values.defaults.weaponsDetection.window (default (dict "window" $.Values.defaults.weaponsDetection.window) .weaponsDetection).window }}"
+  MIN_WEAPONS_DETECTIONS_PER_SECOND: "{{ default $.Values.defaults.weaponsDetection.minDetectionsPerSecond (default (dict "minDetectionsPerSecond" $.Values.defaults.weaponsDetection.minDetectionsPerSecond) .weaponsDetection).minDetectionsPerSecond }}"
 {{- end }}
