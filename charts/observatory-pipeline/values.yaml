@@ -46,6 +46,13 @@ defaults:
   keydb:
     uri: keydb:6379
 
+  # SeaweedFS connection
+  seaweedfs:
+    masterBaseUrl: http://seaweedfs:9333
+    filerBaseUrl: http://seaweedfs:8888
+    volumeBaseUrl: http://seaweedfs:8080
+    ttl: "1h" # e.g. 3m, 1h
+
   stream: update-frame-rate-control
   annotations:
     teknoir.org/managed-by: devstudio

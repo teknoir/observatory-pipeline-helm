@@ -130,6 +130,12 @@ data:
   # KeyDB
   KEYDB_DB_URI: "{{ default $.Values.defaults.keydb.uri (default (dict "uri" $.Values.defaults.keydb.uri) .keydb).uri }}"
 
+  # SeaweedFS
+  SEAWEEDFS_FILER_BASE_URL: "{{ default $.Values.defaults.seaweedfs.filerBaseUrl (default (dict "filerBaseUrl" $.Values.defaults.seaweedfs.filerBaseUrl) .seaweedfs).filerBaseUrl }}"
+  SEAWEEDFS_VOLUME_BASE_URL: "{{ default $.Values.defaults.seaweedfs.volumeBaseUrl (default (dict "volumeBaseUrl" $.Values.defaults.seaweedfs.volumeBaseUrl) .seaweedfs).volumeBaseUrl }}"
+  SEAWEEDFS_MASTER_BASE_URL: "{{ default $.Values.defaults.seaweedfs.masterBaseUrl (default (dict "masterBaseUrl" $.Values.defaults.seaweedfs.masterBaseUrl) .seaweedfs).masterBaseUrl }}"
+  SEAWEEDFS_TTL: "{{ default $.Values.defaults.seaweedfs.ttl (default (dict "ttl" $.Values.defaults.seaweedfs.ttl) .seaweedfs).ttl }}"
+
   # Video directories
   VIDEO_DIRECTORY: "{{ default $.Values.defaults.video.directory (default (dict "directory" $.Values.defaults.video.directory) .video).directory }}"
   VIDEO_TEMP_DIRECTORY: "{{ default $.Values.defaults.video.tempDirectory (default (dict "tempDirectory" $.Values.defaults.video.tempDirectory) .video).tempDirectory }}"
