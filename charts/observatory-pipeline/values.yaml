@@ -162,7 +162,7 @@ defaults:
     personCutoutPaddingProportion: 0.0
     personCutoutMinSize: 200 # pixels (width and height)
     weaponCutoutMinSize: 60 # pixels (width and height)
-    weaponCutoutPaddingProportion: 40.0
+    weaponCutoutPaddingProportion: 0.4
     loiteringLabels: "person" # supports multiple labels via comma separated list
     sensorsNodeData: "{}"
     loiteringThreshold: 60 # 60 seconds
