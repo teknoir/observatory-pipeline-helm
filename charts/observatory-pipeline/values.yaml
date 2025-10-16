@@ -46,6 +46,10 @@ defaults:
   keydb:
     uri: keydb:6379
 
+  # Milvus connection
+  milvus:
+    uri: milvus:19530
+
   # SeaweedFS connection
   seaweedfs:
     masterBaseUrl: http://seaweedfs:9333
@@ -98,7 +102,17 @@ defaults:
     topicFileTransfers: "/devices/+/events/file/+"
     topicDevicesEventsAlerts: "/devices/+/events/alerts"
     topicDevicesEventsStaleAlerts: "/devices/+/events/stale-alerts"
+    topicDevicesEventsMovements: "/devices/+/events/movements"
     topicFaces: "events/faces"
+    topicFacerecCutouts: "toe/events/facerec-cutouts"
+    topicPersonCutouts: "toe/events/person-cutouts"
+    topicLineCrossingCutouts: "toe/events/line-crossing-cutouts"
+    topicWeaponCutouts: "toe/events/weapon-cutouts"
+    topicToeFaceCoverCommands: "toe/commands/face-cover"
+    topicToeSafeOpenCommands: "toe/commands/safe-open"
+    topicToeBackdoorOpenCommands: "toe/commands/backdoor-open"
+    topicToeAlarmEventCommands: "toe/commands/alarm-event"
+    topicToePosEventCommands: "toe/commands/pos-event"
   resources:
     limits:
       cpu: 2000m
@@ -112,6 +126,10 @@ defaults:
     apiUrl: "http://historian-api:8000"
     recordDetectionsInterval: 333 # milliseconds
     objectsToFilter: "person,car,truck,motorbike,gun,weapon" # supports multiple labels via comma separated list
+    dbName: "historian"
+    dropTables: true
+    dbUser: "teknoir"
+    dbPassword: "teknoirpassword"
   regions:
     iouThreshold: 0.001 # default Intersection Over Union (IOU) threshold for object detection inside region
   video:
@@ -136,8 +154,15 @@ defaults:
     staleSeconds: 30 # seconds
     clipRealRunupCalculation: true
     personDownInterval: 10
+    personDownScoreThreshold: 0.85
     personDownDominantThreshold: 0.85
+    personUpScoreThreshold: 0.75
     personDownUpTotalCountThreshold: 10
+    personCutoutDetectionThreshold: 0.85
+    personCutoutPaddingProportion: 0.0
+    personCutoutMinSize: 200 # pixels (width and height)
+    weaponCutoutMinSize: 60 # pixels (width and height)
+    weaponCutoutPaddingProportion: 40.0
     loiteringLabels: "person" # supports multiple labels via comma separated list
     sensorsNodeData: "{}"
     loiteringThreshold: 60 # 60 seconds
@@ -154,6 +179,7 @@ defaults:
     alertHeatmapEnabled: true
     alertHeatmapGridSize: 20  # NXN grid size
     alertHeatmapEventsRetentionPeriod: 86400 # 24h = 86400 seconds
+    alertHeatmapThresholdFilter: 900 # Alert frequency threshold for certain region, default 900s (every 15 minutes)
     alertHeatmapAlertsToFilter: "loitering,person_down" # Alerts to filter out from the heatmap, e.g. "loitering"
     alertHeatmapPercentileThreshold: 95.0 # 95% percentile
     alertHeatmapHardSupression: false
@@ -176,9 +202,15 @@ defaults:
     faceRecThreshold: 0.51 # similarity threshold (different for each model)
     faceRetention: 24 # hours
     faceImageSize: 200 # pixels (width and height)
+    faceDetectionThreshold: 0.75 # threshold for face detection (higher, better face alignment)
+    faceImagePaddingProportion: 0.5 # padding around the face detection bounding box
+    faceCoverThreshold: 0.8 # threshold for face cover detection
+    faceCoverWindowSize: 5000 # milliseconds
+    faceCoverSlidingInterval: 500 # milliseconds
   runningDetection:
     interval: 500 # milliseconds -> window x4
     velocityThreshold: 3.0 # meters per second
+    minDetections: 5 # minimum number of detections to be considered during the running window
   multicamId:
     interval: 1000 # milliseconds
     embeddingsRetention: 60 # seconds
@@ -195,7 +227,29 @@ defaults:
     windowSize: 5000 # milliseconds
     slidingInterval: 500 # milliseconds
   lineCrossing:
-    intervalMs: 1000 # milliseconds
-    windowMs: 5000 # milliseconds
+    intervalMs: 2000 # milliseconds
+    windowMs: 10000 # milliseconds
+    dejitterBatchMs: 5000 # milliseconds
+    dejitterBatchCount: 1000
     visualDebugEnabled: false
-    visualDebugPeripheralId: ""
+    visualDebugPeripheralId: "line-crossing-nc009-8-18"
+  
+  # Extended Occupancy
+  extendedOccupancy:
+    intervalS: 60 # seconds
+    timeThresholdS: 1800 # seconds
+    continuityThresholdS: 60 # seconds
+  
+  # File Transfer
+  fileTransfer:
+    blockSize: 314572800 # 300MB
+  
+  # Feature Flags
+  featureFlags:
+    alertsV2Enabled: true
+    staleAlertsV2Enabled: true
+  
+  # ROI Configuration
+  roiConfig:
+    path: "/data/roi-config/roi-config.yaml"
+    testMode: false
