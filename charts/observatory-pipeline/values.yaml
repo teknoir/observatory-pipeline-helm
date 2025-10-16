@@ -242,7 +242,7 @@ defaults:
   
   # File Transfer
   fileTransfer:
-    blockSize: 314572800 # 300MB
+    blockSize: "314572800" # 300MB
   
   # Feature Flags
   featureFlags:
