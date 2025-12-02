@@ -253,3 +253,20 @@ defaults:
   roiConfig:
     path: "/data/roi-config/roi-config.yaml"
     testMode: false
+  
+  # LLM Processing Service
+  llmProcessingService:
+    url: "http://llm-processing-service-api"
+    timeoutSec: 30
+    maxRetries: 3
+  
+  # REID Visual Attribute Inference
+  reidVisualAttr:
+    promptName: "reid-visual-attributes"
+    responseModel: "reid_visual_attribute_classifier"
+    modelName: "projects/815276040543/locations/us-central1/endpoints/3300653642234724352"
+  
+  # GCS Upload Retry Configuration
+  gcsUpload:
+    maxRetries: 3
+    retryBaseDelayMs: 1000 # base delay for exponential backoff in milliseconds
