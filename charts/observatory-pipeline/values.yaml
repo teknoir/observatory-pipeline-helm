@@ -253,3 +253,10 @@ defaults:
   roiConfig:
     path: "/data/roi-config/roi-config.yaml"
     testMode: false
+  
+  # Location Configuration (for sunset/sunrise calculation)
+  # Default coordinates are for NC Durham Glenn School (NC0009)
+  location:
+    latitude: 36.0300627
+    longitude: -78.8417945
+    timezone: "America/New_York" # IANA timezone name (e.g., "America/New_York", "Europe/London")
