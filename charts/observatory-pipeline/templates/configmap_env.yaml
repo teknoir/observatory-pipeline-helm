@@ -234,4 +234,9 @@ data:
   EXTENDED_OCCUPANCY_INTERVAL_S: "{{ default $.Values.defaults.extendedOccupancy.intervalS (default (dict "intervalS" $.Values.defaults.extendedOccupancy.intervalS) .extendedOccupancy).intervalS }}"
   EXTENDED_OCCUPANCY_TIME_THRESHOLD_S: "{{ default $.Values.defaults.extendedOccupancy.timeThresholdS (default (dict "timeThresholdS" $.Values.defaults.extendedOccupancy.timeThresholdS) .extendedOccupancy).timeThresholdS }}"
   EXTENDED_OCCUPANCY_CONTINUITY_THRESHOLD_S: "{{ default $.Values.defaults.extendedOccupancy.continuityThresholdS (default (dict "continuityThresholdS" $.Values.defaults.extendedOccupancy.continuityThresholdS) .extendedOccupancy).continuityThresholdS }}"
+
+  # Location Configuration (for sunset/sunrise calculation)
+  LOCATION_LATITUDE: "{{ default $.Values.defaults.location.latitude (default (dict "latitude" $.Values.defaults.location.latitude) .location).latitude }}"
+  LOCATION_LONGITUDE: "{{ default $.Values.defaults.location.longitude (default (dict "longitude" $.Values.defaults.location.longitude) .location).longitude }}"
+  LOCATION_TIMEZONE: "{{ default $.Values.defaults.location.timezone (default (dict "timezone" $.Values.defaults.location.timezone) .location).timezone }}"
 {{- end }}
