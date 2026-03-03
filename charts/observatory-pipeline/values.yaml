@@ -1,9 +1,30 @@
 # Example for minimal configuration
 streams:
   - stream: update-frame-rate-control
+  - stream: record-detections
 
 # Values possible for Observatory Pipelines
 defaults:
+
+# Added from NVR config
+  roiStreamConfig:
+    enabled: true
+    peripherals:
+      - name: nc0009-pos
+        config-width: 1920
+        config-height: 1080
+        roi-config:
+          roi-filtering-Exclusion-Zone-0: "0;0;20;0;65;279;433;111;425;38;462;0;540;0;612;46;785;0;1920;0;1920;1080;0;1080"
+
+      - name: nc0009-back-door
+        config-width: 1920
+        config-height: 1080
+        roi-config:
+          roi-filtering-Exclusion-Zone-0: "0;0;1920;0;1920;1080;0;1080"
+        lc-config:
+          lc-back-room-Entry-0: "705;586;745;782;590;813;899;750"
+          lc-back-room-Exit-0: "784;978;745;782;899;750;590;813"
+
   # Application identification
   appName: observatory-event-processing-app
   appVersion: 2.0.1
@@ -25,18 +46,33 @@ defaults:
   keydb:
     uri: keydb:6379
 
+  # Milvus connection
+  milvus:
+    uri: milvus:19530
+
+  # SeaweedFS connection
+  seaweedfs:
+    masterBaseUrl: http://seaweedfs:9333
+    filerBaseUrl: http://seaweedfs:8888
+    volumeBaseUrl: http://seaweedfs:8080
+    ttl: "1h" # e.g. 3m, 1h
+
   stream: update-frame-rate-control
   annotations:
     teknoir.org/managed-by: devstudio
   image:
     repository: us-docker.pkg.dev/teknoir/gcr.io/observatory-event-processing
-    tag: dev-91d0f56
+    tag: weaponscore.3-not-committed
   # Set the log level for the nvr
   # - DEBUG
   # - INFO
   # - WARNING
   # - ERROR
   debugLevel: INFO
+  nodeSelector: {}
+  instructor:
+    model: "gemini-2.5-flash"
+    prompt: "Describe the following scene in detail, including objects, actions, environment, and any notable features."
   mqtt:
     # Local MQTT broker
     broker: mqtt.kube-system
@@ -70,7 +106,17 @@ defaults:
     topicFileTransfers: "/devices/+/events/file/+"
     topicDevicesEventsAlerts: "/devices/+/events/alerts"
     topicDevicesEventsStaleAlerts: "/devices/+/events/stale-alerts"
+    topicDevicesEventsMovements: "/devices/+/events/movements"
     topicFaces: "events/faces"
+    topicFacerecCutouts: "toe/events/facerec-cutouts"
+    topicPersonCutouts: "toe/events/person-cutouts"
+    topicLineCrossingCutouts: "toe/events/line-crossing-cutouts"
+    topicWeaponCutouts: "toe/events/weapon-cutouts"
+    topicToeFaceCoverCommands: "toe/commands/face-cover"
+    topicToeSafeOpenCommands: "toe/commands/safe-open"
+    topicToeBackdoorOpenCommands: "toe/commands/backdoor-open"
+    topicToeAlarmEventCommands: "toe/commands/alarm-event"
+    topicToePosEventCommands: "toe/commands/pos-event"
   resources:
     limits:
       cpu: 2000m
@@ -84,6 +130,10 @@ defaults:
     apiUrl: "http://historian-api:8000"
     recordDetectionsInterval: 333 # milliseconds
     objectsToFilter: "person,car,truck,motorbike,gun,weapon" # supports multiple labels via comma separated list
+    dbName: "historian"
+    dropTables: true
+    dbUser: "teknoir"
+    dbPassword: "teknoirpassword"
   regions:
     iouThreshold: 0.001 # default Intersection Over Union (IOU) threshold for object detection inside region
   video:
@@ -109,8 +159,14 @@ defaults:
     clipRealRunupCalculation: true
     personDownInterval: 10
     personDownScoreThreshold: 0.85
+    personDownDominantThreshold: 0.85
     personUpScoreThreshold: 0.75
     personDownUpTotalCountThreshold: 10
+    personCutoutDetectionThreshold: 0.85
+    personCutoutPaddingProportion: 0.0
+    personCutoutMinSize: 200 # pixels (width and height)
+    weaponCutoutMinSize: 60 # pixels (width and height)
+    weaponCutoutPaddingProportion: 0.4
     loiteringLabels: "person" # supports multiple labels via comma separated list
     sensorsNodeData: "{}"
     loiteringThreshold: 60 # 60 seconds
@@ -127,6 +183,7 @@ defaults:
     alertHeatmapEnabled: true
     alertHeatmapGridSize: 20  # NXN grid size
     alertHeatmapEventsRetentionPeriod: 86400 # 24h = 86400 seconds
+    alertHeatmapThresholdFilter: 900 # Alert frequency threshold for certain region, default 900s (every 15 minutes)
     alertHeatmapAlertsToFilter: "loitering,person_down" # Alerts to filter out from the heatmap, e.g. "loitering"
     alertHeatmapPercentileThreshold: 95.0 # 95% percentile
     alertHeatmapHardSupression: false
@@ -149,9 +206,15 @@ defaults:
     faceRecThreshold: 0.51 # similarity threshold (different for each model)
     faceRetention: 24 # hours
     faceImageSize: 200 # pixels (width and height)
+    faceDetectionThreshold: 0.75 # threshold for face detection (higher, better face alignment)
+    faceImagePaddingProportion: 0.5 # padding around the face detection bounding box
+    faceCoverThreshold: 0.8 # threshold for face cover detection
+    faceCoverWindowSize: 5000 # milliseconds
+    faceCoverSlidingInterval: 500 # milliseconds
   runningDetection:
     interval: 500 # milliseconds -> window x4
     velocityThreshold: 3.0 # meters per second
+    minDetections: 5 # minimum number of detections to be considered during the running window
   multicamId:
     interval: 1000 # milliseconds
     embeddingsRetention: 60 # seconds
@@ -159,8 +222,38 @@ defaults:
     similarityThreshold: 0.7981 # similarity threshold
   weaponsDetection:
     objectClasses: "gun,weapon"
-    interval: 1000 # milliseconds
-    window: 5 # seconds
+    scoreThreshold: 0.6 # score threshold
+    interval: 500 # milliseconds
+    window: 1 # seconds
     minDetectionsPerSecond: 1.8 # detections per second
+  faceCoverDetection:
+    threshold: 0.8 # threshold
+    windowSize: 5000 # milliseconds
+    slidingInterval: 500 # milliseconds
+  lineCrossing:
+    intervalMs: 5000 # milliseconds
+    windowMs: 10000 # milliseconds >= dejitterBatchMs
+    dejitterBatchMs: 10000 # milliseconds
+    dejitterBatchCount: 3000
+    visualDebugEnabled: false
+    visualDebugPeripheralId: "line-crossing-nc009-8-18"
 
+  # Extended Occupancy
+  extendedOccupancy:
+    intervalS: 60 # seconds
+    timeThresholdS: 1800 # seconds
+    continuityThresholdS: 60 # seconds
 
+  # File Transfer
+  fileTransfer:
+    blockSize: "314572800" # 300MB
+
+  # Feature Flags
+  featureFlags:
+    alertsV2Enabled: true
+    staleAlertsV2Enabled: true
+
+  # ROI Configuration
+  roiConfig:
+    path: "/data/roi-config/roi-config.yaml"
+    testMode: false

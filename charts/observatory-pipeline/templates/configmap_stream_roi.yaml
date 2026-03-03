@@ -1,0 +1,24 @@
+{{- range .Values.streams }}
+{{- $roiEnabled := false }}
+{{- if .roiStreamConfig }}
+  {{- $roiEnabled = .roiStreamConfig.enabled }}
+{{- else if $.Values.defaults.roiStreamConfig }}
+  {{- $roiEnabled = $.Values.defaults.roiStreamConfig.enabled }}
+{{- end }}
+{{- if $roiEnabled }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: stream-{{ .stream }}-roi-config
+  namespace: {{ $.Release.Namespace }}
+  labels:
+    app: stream-{{ .stream }}
+  annotations:
+    {{- toYaml (default $.Values.defaults.annotations .annotations) | nindent 4 }}
+data:
+  roi-config.yaml: |
+    peripherals:
+      {{- toYaml (default $.Values.defaults.roiStreamConfig.peripherals (default (dict "peripherals" $.Values.defaults.roiStreamConfig.peripherals) .roiStreamConfig).peripherals) | nindent 6 }}
+{{- end }}
+{{- end -}}

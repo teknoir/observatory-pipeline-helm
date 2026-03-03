@@ -21,6 +21,8 @@ spec:
         checksum/config: {{ include (print $.Template.BasePath "/configmap_env.yaml") $ | sha256sum }}
         {{- toYaml (default $.Values.defaults.annotations .annotations) | nindent 8 }}
     spec:
+      nodeSelector:
+        {{- toYaml (default $.Values.defaults.nodeSelector .nodeSelector) | nindent 8 }}
       containers:
         - name: {{ .stream }}
           image: "{{ default $.Values.defaults.image.repository (default (dict "repository" $.Values.defaults.image.repository) .image).repository }}:{{ default $.Values.defaults.image.tag (default (dict "tag" $.Values.defaults.image.tag) .image).tag }}"
@@ -31,6 +33,17 @@ spec:
           resources:
             {{- toYaml (default $.Values.defaults.resources .resources) | nindent 12 }}
           volumeMounts:
+            {{- $roiEnabled := false }}
+            {{- if .roiStreamConfig }}
+              {{- $roiEnabled = .roiStreamConfig.enabled }}
+            {{- else if $.Values.defaults.roiStreamConfig }}
+              {{- $roiEnabled = $.Values.defaults.roiStreamConfig.enabled }}
+            {{- end }}
+            {{- if $roiEnabled }}
+            - name: roi-config
+              mountPath: /data/roi-config/roi-config.yaml
+              subPath: roi-config.yaml
+            {{- end }}
             {{- if (default $.Values.defaults.video.mountSegmentPath (default (dict "mountSegmentPath" $.Values.defaults.video.mountSegmentPath) .video).mountSegmentPath) }}
             - name: segments
               mountPath: /videos
@@ -40,6 +53,17 @@ spec:
               mountPath: /video-tmp
             {{- end }}
       volumes:
+        {{- $roiEnabled := false }}
+        {{- if .roiStreamConfig }}
+          {{- $roiEnabled = .roiStreamConfig.enabled }}
+        {{- else if $.Values.defaults.roiStreamConfig }}
+          {{- $roiEnabled = $.Values.defaults.roiStreamConfig.enabled }}
+        {{- end }}
+        {{- if $roiEnabled }}
+        - name: roi-config
+          configMap:
+            name: stream-{{ .stream }}-roi-config
+        {{- end }}
         {{- if (default $.Values.defaults.video.mountSegmentPath (default (dict "mountSegmentPath" $.Values.defaults.video.mountSegmentPath) .video).mountSegmentPath) }}
         - name: segments
           hostPath:
