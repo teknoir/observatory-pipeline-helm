@@ -21,6 +21,8 @@ spec:
         checksum/config: {{ include (print $.Template.BasePath "/configmap_env.yaml") $ | sha256sum }}
         {{- toYaml (default $.Values.defaults.annotations .annotations) | nindent 8 }}
     spec:
+      nodeSelector:
+        {{- toYaml (default $.Values.defaults.nodeSelector .nodeSelector) | nindent 8 }}
       containers:
         - name: {{ .stream }}
           image: "{{ default $.Values.defaults.image.repository (default (dict "repository" $.Values.defaults.image.repository) .image).repository }}:{{ default $.Values.defaults.image.tag (default (dict "tag" $.Values.defaults.image.tag) .image).tag }}"

@@ -69,6 +69,10 @@ defaults:
   # - WARNING
   # - ERROR
   debugLevel: INFO
+  nodeSelector: {}
+  instructor:
+    model: "gemini-2.5-flash"
+    prompt: "Describe the following scene in detail, including objects, actions, environment, and any notable features."
   mqtt:
     # Local MQTT broker
     broker: mqtt.kube-system
@@ -227,10 +231,10 @@ defaults:
     windowSize: 5000 # milliseconds
     slidingInterval: 500 # milliseconds
   lineCrossing:
-    intervalMs: 2000 # milliseconds
-    windowMs: 10000 # milliseconds
-    dejitterBatchMs: 5000 # milliseconds
-    dejitterBatchCount: 1000
+    intervalMs: 5000 # milliseconds
+    windowMs: 10000 # milliseconds >= dejitterBatchMs
+    dejitterBatchMs: 10000 # milliseconds
+    dejitterBatchCount: 3000
     visualDebugEnabled: false
     visualDebugPeripheralId: "line-crossing-nc009-8-18"
   

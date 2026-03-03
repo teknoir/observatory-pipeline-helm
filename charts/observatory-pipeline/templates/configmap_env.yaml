@@ -15,6 +15,10 @@ data:
   CLIENT_ID: "stream-{{ .stream }}"
   STREAM: "{{ .stream }}"
 
+  # Instructor
+  INSTRUCTOR_MODEL: "{{ default $.Values.defaults.instructor.model (default (dict "model" $.Values.defaults.instructor.model) .instructor).model }}"
+  INSTRUCTOR_PROMPT: "{{ default $.Values.defaults.instructor.prompt (default (dict "prompt" $.Values.defaults.instructor.prompt) .instructor).prompt }}"
+
   # MQTT
   MQTT_SERVICE_HOST: "{{ default $.Values.defaults.mqtt.broker (default (dict "broker" $.Values.defaults.mqtt.broker) .mqtt).broker }}"
   MQTT_SERVICE_PORT: "{{ default $.Values.defaults.mqtt.port (default (dict "port" $.Values.defaults.mqtt.port) .mqtt).port }}"
